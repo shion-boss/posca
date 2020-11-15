@@ -184,7 +184,7 @@ STATIC_URL = '/static/'
 ######################################
 
 # Don't forget this little dude.
-#SITE_ID = 1
+SITE_ID = 1
 #LOGIN_URL='line_login'
 # ログインのリダイレクトURL
 #LOGIN_REDIRECT_URL = 'account'
