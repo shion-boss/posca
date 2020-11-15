@@ -239,16 +239,16 @@ if not DEBUG:
 
 #####heroku#####
 
-if not DEBUG:
+#if not DEBUG:
     #CLOUD_NAME= os.environ['CLOUD_NAME']
     #C_API_SECRET=os.environ['C_API_SECRET']
     #C_API_KEY=os.environ['C_API_KEY']
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': CLOUD_NAME,
-    'API_KEY': C_API_KEY,
-    'API_SECRET': C_API_SECRET
-}
+#CLOUDINARY_STORAGE = {
+    #'CLOUD_NAME': CLOUD_NAME,
+    #'API_KEY': C_API_KEY,
+    #'API_SECRET': C_API_SECRET
+#}
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
