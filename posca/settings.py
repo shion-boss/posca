@@ -233,16 +233,16 @@ if not DEBUG:
     #MYMAIL=os.environ['mymail']
     #YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
     #YOUR_CHANNEL_SECRET = os.environ["YOUR_CHANNEL_SECRET"]
-    SECRET_KEY = os.environ['SECRET_KEY']
+    #SECRET_KEY = os.environ['SECRET_KEY']
     import django_heroku #追加
     django_heroku.settings(locals()) #追加
 
 #####heroku#####
 
 if not DEBUG:
-    CLOUD_NAME= os.environ['CLOUD_NAME']
-    C_API_SECRET=os.environ['C_API_SECRET']
-    C_API_KEY=os.environ['C_API_KEY']
+    #CLOUD_NAME= os.environ['CLOUD_NAME']
+    #C_API_SECRET=os.environ['C_API_SECRET']
+    #C_API_KEY=os.environ['C_API_KEY']
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': CLOUD_NAME,
