@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -11,4 +12,5 @@ def index_view(request):
 
 
 def webhooks_view(request):
-    return "ok",200
+    response = HttpResponse(status=200)
+    return response
