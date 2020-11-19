@@ -8,3 +8,7 @@ def index_view(request):
         'a':'b',
     }
     return render(request,'igposca/index.html',params)
+
+
+def webhooks_view(request):
+    return render(request,'igposca/index.html')
