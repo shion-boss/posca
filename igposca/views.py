@@ -34,9 +34,10 @@ def test_ajax_response(request):
     if request.method == 'POST':
         input_text = request.POST["input_data"]
         hoge = "Ajax Response: " + input_text
-        options = webdriver.ChromeOptions()
-        options.add_argument('--headless')
-        driver = webdriver.Chrome(options=options)
+        #options = webdriver.ChromeOptions()
+        #options.add_argument('--headless')
+        #driver = webdriver.Chrome(options=options)
+        driver = webdriver.Chrome()
         driver.get('https://www.google.com/')
         time.sleep(5)
         search_box = driver.find_element_by_name("q")
