@@ -11,4 +11,4 @@ def index_view(request):
 
 
 def webhooks_view(request):
-    return render(request,'igposca/index.html')
+    return "ok",200
