@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     path('',views.index_view,name='index'),
-    path('webhooks/',views.webhooks_view,name='webhooks'),
+    path('2/',views.index2_view,name='index2'),
+    path("ajax/", views.test_ajax_response,name='ajax'),
 ]
