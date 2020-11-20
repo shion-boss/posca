@@ -9,22 +9,21 @@ import time
 
 
 def index_view(request):
-    params={
-        'a':'b',
-    }
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     #※headlessにしている
     driver = webdriver.Chrome(options=options)
-    driver.implicitly_wait(10)
     #driver = webdriver.Chrome()
+    driver.implicitly_wait(60)
     driver.get('https://www.google.com/')
-    time.sleep(5)
     search_box = driver.find_element_by_name("q")
     search_box.send_keys('ChromeDriver')
     search_box.submit()
-    time.sleep(5)
+    a=driver.find_element_by_xpath('//*[@id="rso"]/div[5]/div/div[1]/a/h3/span').get_attribute("textContent")
     driver.quit()
+    params={
+        'a':a,
+    }
     return render(request,'igposca/index.html',params)
 
 def index2_view(request):
@@ -47,7 +46,7 @@ def test_ajax_response(request):
         search_box = driver.find_element_by_name("q")
         search_box.send_keys('ChromeDriver')
         search_box.submit()
-        a=driver.find_element_by_xpath('//*[@id="rso"]/div[1]/div/div[1]/a/h3/span').get_attribute("textContent")
+        a=driver.find_element_by_xpath('//*[@id="rso"]/div[5]/div/div[1]/a/h3/span').get_attribute("textContent")
         return HttpResponse(a)
     else:
         return HttpResponse('こんにちわ')
