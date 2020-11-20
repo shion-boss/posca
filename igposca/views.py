@@ -37,26 +37,29 @@ def test_ajax_response(request):
     if request.method == 'POST':
         input_text = request.POST['input_data']
         hoge = "Ajax Response: " + str(input_text)
-        #options = webdriver.ChromeOptions()
-        #options.add_argument('--headless')
+        a=0
+        options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
         #※headlessにしている
-        #driver = webdriver.Chrome(options=options)
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome(options=options)
+        #driver = webdriver.Chrome()
         driver.implicitly_wait(10)
         driver.get('https://www.google.com/')
         search_box = driver.find_element_by_name("q")
         search_box.send_keys('ChromeDriver')
         search_box.submit()
-        time.sleep(20)
+        a+=1
+        time.sleep(10)
         driver.get('https://www.google.com/')
         search_box = driver.find_element_by_name("q")
         search_box.send_keys('ChromeDriver')
         search_box.submit()
-        time.sleep(20)
+        a+=1
+        time.sleep(10)
         driver.get('https://www.google.com/')
         search_box = driver.find_element_by_name("q")
         search_box.send_keys('ChromeDriver')
         search_box.submit()
-        return HttpResponse(hoge)
+        return HttpResponse(a)
     else:
         return HttpResponse('こんにちわ')
