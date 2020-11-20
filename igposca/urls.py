@@ -5,5 +5,5 @@ from . import views
 urlpatterns = [
     path('',views.index_view,name='index'),
     path('2/',views.index2_view,name='index2'),
-    path("ajax/", views.test_ajax_response,name='ajax'),
+    path("ajax/",views.test_ajax_response,name='ajax'),
 ]
