@@ -12,9 +12,12 @@ def index_view(request):
     params={
         'a':'b',
     }
+    # herokuのchromedriverのPATHを指定
+    driver_path = '/app/.chromedriver/bin/chromedriver'
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
-    driver = webdriver.Chrome(options=options)
+    #※headlessにしている
+    driver = webdriver.Chrome(options=options, executable_path=driver_path)
     driver.implicitly_wait(10)
     #driver = webdriver.Chrome()
     driver.get('https://www.google.com/')
@@ -36,18 +39,6 @@ def test_ajax_response(request):
     if request.method == 'POST':
         input_text = request.POST['input_data']
         hoge = "Ajax Response: " + str(input_text)
-        options = webdriver.ChromeOptions()
-        options.add_argument('--headless')
-        driver = webdriver.Chrome(options=options)
-        driver.implicitly_wait(10)
-        #driver = webdriver.Chrome()
-        driver.get('https://www.google.com/')
-        time.sleep(5)
-        search_box = driver.find_element_by_name("q")
-        search_box.send_keys('ChromeDriver')
-        search_box.submit()
-        time.sleep(5)
-        driver.quit()
         return HttpResponse(hoge)
     else:
         return HttpResponse('こんにちわ')
