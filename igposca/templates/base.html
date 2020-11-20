@@ -25,13 +25,13 @@
          event.preventDefault();
          var form = $(this);
          $.ajax({
-           url: "{% url 'ajax' %}",
            method: form.prop("method"),
+           url: form.prop("href"),
            data: form.serialize(),
            timeout: 10000,
            dataType: "text",
          })
-         .done(function(data) {
+         .done(function(data){
            alert("done");
            $("#id_div_ajax_response").text(data);
          })
