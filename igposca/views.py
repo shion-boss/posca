@@ -15,6 +15,8 @@ def index_view(request):
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     driver = webdriver.Chrome(options=options)
+    driver.implicitly_wait(10)
+    #driver = webdriver.Chrome()
     driver.get('https://www.google.com/')
     time.sleep(5)
     search_box = driver.find_element_by_name("q")
@@ -32,11 +34,12 @@ def index2_view(request):
 
 def test_ajax_response(request):
     if request.method == 'POST':
-        input_text = request.POST["input_data"]
-        hoge = "Ajax Response: " + input_text
+        input_text = request.POST['input_data']
+        hoge = "Ajax Response: " + str(input_text)
         options = webdriver.ChromeOptions()
         options.add_argument('--headless')
         driver = webdriver.Chrome(options=options)
+        driver.implicitly_wait(10)
         #driver = webdriver.Chrome()
         driver.get('https://www.google.com/')
         time.sleep(5)
@@ -46,3 +49,5 @@ def test_ajax_response(request):
         time.sleep(5)
         driver.quit()
         return HttpResponse(hoge)
+    else:
+        return HttpResponse('こんにちわ')
