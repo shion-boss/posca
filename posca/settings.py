@@ -15,9 +15,6 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 import dj_database_url
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-import chromedriver_binary
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -253,15 +250,8 @@ if not DEBUG:
     #'API_SECRET': C_API_SECRET
 #}
 
-if not DEBUG:
-    options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
-    #※headlessにしている
-    DRIVER = webdriver.Chrome(options=options)
-    PAS=os.environ['pas']
-else:
-    DRIVER = webdriver.Chrome()
-    PAS=PAS
+PAS='Shion56107'
+
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
