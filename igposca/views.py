@@ -96,7 +96,7 @@ def test_ajax_response(request):
         except:
             pass
         time.sleep(1)
-        driver.get('https://www.instagram.com/explore/tags/息子/')
+        driver.get('https://www.instagram.com/explore/tags/朝ごはん/')
         time.sleep(1)
         driver.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[1]/div/div/div[1]/div[1]/a/div/div[2]').click()
         time.sleep(1)
