@@ -86,7 +86,7 @@ def test_ajax_response(request):
 def search_tags_ajax_view(request):
     if request.method == 'GET':
         options = webdriver.ChromeOptions()
-        #options.add_argument('--headless')
+        options.add_argument('--headless')
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--no-sandbox')
         driver = webdriver.Chrome(options=options)
