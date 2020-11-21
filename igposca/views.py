@@ -21,8 +21,18 @@ def index_view(request):
     search_box.submit()
     a=driver.find_element_by_xpath('//*[@id="rso"]/div[5]/div/div[1]/a/h3/span').get_attribute("textContent")
     driver.quit()
+    p=0
+    for i in range(10):
+        p +=1
+        driver.get('https://www.google.com/')
+        search_box = driver.find_element_by_name("q")
+        search_box.send_keys('ChromeDriver')
+        search_box.submit()
+        a=driver.find_element_by_xpath('//*[@id="rso"]/div['+str(input_text)+']/div/div[1]/a/h3/span').get_attribute("textContent")
+        driver.quit()
+    b= a + ':' + str(p)
     params={
-        'a':a,
+        'a':b,
     }
     return render(request,'igposca/index.html',params)
 
@@ -42,11 +52,16 @@ def test_ajax_response(request):
         driver = webdriver.Chrome(options=options)
         #driver = webdriver.Chrome()
         driver.implicitly_wait(60)
-        driver.get('https://www.google.com/')
-        search_box = driver.find_element_by_name("q")
-        search_box.send_keys('ChromeDriver')
-        search_box.submit()
-        a=driver.find_element_by_xpath('//*[@id="rso"]/div['+str(input_text)+']/div/div[1]/a/h3/span').get_attribute("textContent")
-        return HttpResponse(a)
+        p=0
+        for i in range(10):
+            p +=1
+            driver.get('https://www.google.com/')
+            search_box = driver.find_element_by_name("q")
+            search_box.send_keys('ChromeDriver')
+            search_box.submit()
+            a=driver.find_element_by_xpath('//*[@id="rso"]/div['+str(input_text)+']/div/div[1]/a/h3/span').get_attribute("textContent")
+            driver.quit()
+        b= a + ':' + str(p)
+        return HttpResponse(b)
     else:
         return HttpResponse('こんにちわ')
