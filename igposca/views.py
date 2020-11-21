@@ -70,12 +70,12 @@ def test_ajax_response(request):
         input_text = request.POST['input_data']
         hoge = "Ajax Response: " + str(input_text)
         options = webdriver.ChromeOptions()
-        #options.add_argument('--headless')
+        options.add_argument('--headless')
+        options.add_argument('--disable-dev-shm-usage')
+        #※headlessにしている
         #options = Options()
         #headlessの設定をTrueにする
         #options.headless = True
-        #※headlessにしている
-        options.add_argument('--disable-dev-shm-usage')
         driver = webdriver.Chrome(options=options)
         #driver = webdriver.Chrome()
         driver.implicitly_wait(60)
@@ -91,14 +91,25 @@ def test_ajax_response(request):
         time.sleep(1)
         driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button').click()
         time.sleep(1)
-        driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]').click()
+        try:
+            driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]').click()
+        except:
+            pass
         time.sleep(1)
-        driver.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[3]/div/div[4]/a').click()
+        driver.get('https://www.instagram.com/explore/tags/息子/')
         time.sleep(1)
-        driver.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[3]/div/div[4]/div/div[2]/div[2]/div/div/div/div/div[1]/div[2]/a').click()
+        driver.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[1]/div/div/div[1]/div[1]/a/div/div[2]').click()
         time.sleep(1)
-        a=driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/header/section/div[1]/h2').get_attribute("textContent")
+        e=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/div[2]/div/div/div[2]')
+        webdriver.ActionChains(driver).double_click(e).perform()
         time.sleep(1)
+        driver.find_element_by_xpath('/html/body/div[5]/div[1]/div/div/a').click()
+        for i in range(10):
+            e=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/div[2]/div/div/div[2]')
+            webdriver.ActionChains(driver).double_click(e).perform()
+            time.sleep(1)
+            driver.find_element_by_xpath('/html/body/div[5]/div[1]/div/div/a[2]').click()
+
 
         #search_box = driver.find_element_by_name("q")
         #search_box.send_keys('インスタグラム')
@@ -107,6 +118,6 @@ def test_ajax_response(request):
         #a=driver.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[2]/div[2]/div/p/a/span').get_attribute("textContent")
         #driver.quit()
         #driver.close()
-        return HttpResponse(a)
+        return HttpResponse('ふぅ、、完了だぜ。')
     else:
         return HttpResponse('こんにちわ')
