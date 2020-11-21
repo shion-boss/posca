@@ -8,3 +8,4 @@
 [1121/172536.911:ERROR:exception_snapshot_win.cc(99)] thread ID 51728 not found in process
 [1121/172536.932:ERROR:process_reader_win.cc(123)] NtOpenThread: {アクセス拒否} プロセスはオブジェクトのアクセスを要求しましたが、アクセス権が与えられていません。 (0xc0000022)
 [1121/172536.932:ERROR:exception_snapshot_win.cc(99)] thread ID 65056 not found in process
+[1121/185317.219:ERROR:directory_reader_win.cc(43)] FindFirstFile: 指定されたパスが見つかりません。 (0x3)
