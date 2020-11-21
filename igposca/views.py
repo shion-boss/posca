@@ -4,16 +4,18 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import chromedriver_binary
 import time
+from django.conf import settings
 
 # Create your views here.
 
 
 def index_view(request):
-    options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
+    #options = webdriver.ChromeOptions()
+    #options.add_argument('--headless')
     #※headlessにしている
-    driver = webdriver.Chrome(options=options)
+    #driver = webdriver.Chrome(options=options)
     #driver = webdriver.Chrome()
+    driver =settings.DRIVER
     driver.implicitly_wait(60)
     driver.get('https://www.google.com/')
     search_box = driver.find_element_by_name("q")
@@ -40,13 +42,14 @@ def test_ajax_response(request):
         #options.add_argument('--headless')
         #※headlessにしている
         #driver = webdriver.Chrome(options=options)
-        driver = webdriver.Chrome()
+        #driver = webdriver.Chrome()
+        driver =settings.DRIVER
         driver.implicitly_wait(60)
         driver.get('https://www.instagram.com/?hl=ja')
         l=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
         l.send_keys('dn.2a1')
         r=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
-        r.send_keys('Shion56107')
+        r.send_keys(settings.PAS)
         driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]').click()
         driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button').click()
         driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]').click()
