@@ -261,6 +261,7 @@ if not DEBUG:
     PAS=os.environ['pas']
 else:
     DRIVER = webdriver.Chrome()
+    PAS=PAS
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
