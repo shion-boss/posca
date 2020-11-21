@@ -44,7 +44,7 @@ def test_ajax_response(request):
         driver.implicitly_wait(60)
         driver.get('https://www.google.com/')
         search_box = driver.find_element_by_name("q")
-        search_box.send_keys('ChromeDriver')
+        search_box.send_keys('インスタグラム')
         search_box.submit()
         a=driver.find_element_by_xpath('//*[@id="rso"]/div['+str(input_text)+']/div/div[1]/a/h3/span').get_attribute("textContent")
         driver.quit()
