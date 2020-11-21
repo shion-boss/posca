@@ -5,6 +5,8 @@ from selenium.webdriver.chrome.options import Options
 import chromedriver_binary
 import time
 from django.conf import settings
+import urllib
+import os
 
 # Create your views here.
 
@@ -75,6 +77,38 @@ def test_ajax_response(request):
         #a=driver.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[2]/div[2]/div/p/a/span').get_attribute("textContent")
         #driver.quit()
         #driver.close()
-        return HttpResponse(data='ふぅ、、完了だぜ。')
+        return HttpResponse('ふぅ、、完了だぜ。')
     else:
         return HttpResponse('こんにちわ')
+
+
+
+def search_tags_ajax_view(request):
+    if request.method == 'GET':
+        options = webdriver.ChromeOptions()
+        #options.add_argument('--headless')
+        options.add_argument('--disable-dev-shm-usage')
+        options.add_argument('--no-sandbox')
+        driver = webdriver.Chrome(options=options)
+        driver.implicitly_wait(60)
+        driver.get('https://www.instagram.com/?hl=ja')
+        l=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
+        l.send_keys('poscagram')
+        time.sleep(1)
+        r=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
+        r.send_keys(settings.IGKEY)
+        time.sleep(1)
+        driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]').click()
+        time.sleep(1)
+        driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button').click()
+        time.sleep(1)
+        driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]').click()
+        time.sleep(1)
+        driver.get('https://www.instagram.com/poscagram/tagged/')
+        driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div[2]/article/div/div/div/div[1]').click()
+        img = driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/div[2]/div/div[1]/div[2]/div/div/div/ul/li[2]/div/div/div/div[1]/div[1]/img')
+        src = img.get_attribute('src')
+        urllib.request.urlretrieve(src, os.path.join('media', 'momo.png'))
+
+
+        return HttpResponse('ふぅ、、完了だぜ。')

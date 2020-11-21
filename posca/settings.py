@@ -250,7 +250,7 @@ if not DEBUG:
     #'API_SECRET': C_API_SECRET
 #}
 
-PAS='Shion56107'
+IGKEY='poscagram_key'
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
