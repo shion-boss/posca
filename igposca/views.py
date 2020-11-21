@@ -10,50 +10,6 @@ from django.conf import settings
 
 
 def index_view(request):
-    options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
-    options.add_argument('--disable-dev-shm-usage')
-    #※headlessにしている
-    #options = Options()
-    #headlessの設定をTrueにする
-    #options.headless = True
-    driver = webdriver.Chrome(options=options)
-    #driver = webdriver.Chrome()
-    driver.implicitly_wait(60)
-    driver.get('https://www.instagram.com/?hl=ja')
-    time.sleep(1)
-    l=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
-    l.send_keys('dn.2a1')
-    time.sleep(1)
-    r=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
-    r.send_keys(settings.PAS)
-    time.sleep(1)
-    driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]').click()
-    time.sleep(1)
-    driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button').click()
-    time.sleep(1)
-    try:
-        driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]').click()
-    except:
-        pass
-    time.sleep(1)
-    driver.get('https://www.instagram.com/explore/tags/娘/')
-    time.sleep(1)
-    driver.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[1]/div/div/div[1]/div[1]/a/div/div[2]').click()
-    time.sleep(1)
-    e=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/div[2]/div/div/div[2]')
-    webdriver.ActionChains(driver).double_click(e).perform()
-    time.sleep(1)
-    driver.find_element_by_xpath('/html/body/div[5]/div[1]/div/div/a').click()
-    for i in range(10):
-        e=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/div[2]/div/div/div[2]')
-        webdriver.ActionChains(driver).double_click(e).perform()
-        time.sleep(1)
-        driver.find_element_by_xpath('/html/body/div[5]/div[1]/div/div/a[2]').click()
-
-
-
-
     params={
         'a':'1',
     }
@@ -72,6 +28,7 @@ def test_ajax_response(request):
         options = webdriver.ChromeOptions()
         options.add_argument('--headless')
         options.add_argument('--disable-dev-shm-usage')
+        options.add_argument('--no-sandbox')
         #※headlessにしている
         #options = Options()
         #headlessの設定をTrueにする
@@ -96,7 +53,7 @@ def test_ajax_response(request):
         except:
             pass
         time.sleep(1)
-        driver.get('https://www.instagram.com/explore/tags/朝ごはん/')
+        driver.get('https://www.instagram.com/explore/tags/病み/')
         time.sleep(1)
         driver.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[1]/div/div/div[1]/div[1]/a/div/div[2]').click()
         time.sleep(1)
@@ -118,6 +75,6 @@ def test_ajax_response(request):
         #a=driver.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[2]/div[2]/div/p/a/span').get_attribute("textContent")
         #driver.quit()
         #driver.close()
-        return HttpResponse('ふぅ、、完了だぜ。')
+        return HttpResponse(data='ふぅ、、完了だぜ。')
     else:
         return HttpResponse('こんにちわ')
