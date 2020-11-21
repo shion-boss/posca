@@ -36,17 +36,18 @@ def test_ajax_response(request):
     if request.method == 'POST':
         input_text = request.POST['input_data']
         hoge = "Ajax Response: " + str(input_text)
-        options = webdriver.ChromeOptions()
-        options.add_argument('--headless')
+        #options = webdriver.ChromeOptions()
+        #options.add_argument('--headless')
         #※headlessにしている
-        driver = webdriver.Chrome(options=options)
-        #driver = webdriver.Chrome()
+        #driver = webdriver.Chrome(options=options)
+        driver = webdriver.Chrome()
         driver.implicitly_wait(60)
         driver.get('https://www.google.com/')
         search_box = driver.find_element_by_name("q")
         search_box.send_keys('インスタグラム')
         search_box.submit()
-        a=driver.find_element_by_xpath('//*[@id="rso"]/div['+str(input_text)+']/div/div[1]/a/h3/span').get_attribute("textContent")
+        s=driver.find_element_by_xpath('//*[@id="rso"]/div['+str(input_text)+']/div/div[1]/a/h3/span').click()
+        a=driver.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[2]/div[2]/div/p/a/span').get_attribute("textContent")
         driver.quit()
         return HttpResponse(a)
     else:
