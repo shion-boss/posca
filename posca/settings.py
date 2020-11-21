@@ -234,6 +234,7 @@ if not DEBUG:
     #YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
     #YOUR_CHANNEL_SECRET = os.environ["YOUR_CHANNEL_SECRET"]
     SECRET_KEY = os.environ['SECRET_KEY']
+    IGKEY=os.environ['IGKEY']
     import django_heroku #追加
     django_heroku.settings(locals()) #追加
 
