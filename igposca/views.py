@@ -17,7 +17,7 @@ def index_view(request):
     driver.implicitly_wait(60)
     driver.get('https://www.google.com/')
     search_box = driver.find_element_by_name("q")
-    search_box.send_keys('ChromeDriver')
+    search_box.send_keys('お金')
     search_box.submit()
     a=driver.find_element_by_xpath('//*[@id="rso"]/div[1]/div/div[1]/a/h3/span').get_attribute("textContent")
     driver.quit()
