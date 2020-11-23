@@ -7,6 +7,7 @@ import time
 from django.conf import settings
 import urllib
 import os
+from .models import taged_data
 
 # Create your views here.
 
@@ -84,31 +85,85 @@ def test_ajax_response(request):
 
 
 def search_tags_ajax_view(request):
-    if request.method == 'GET':
-        options = webdriver.ChromeOptions()
-        options.add_argument('--headless')
-        options.add_argument('--disable-dev-shm-usage')
-        options.add_argument('--no-sandbox')
-        driver = webdriver.Chrome(options=options)
-        driver.implicitly_wait(60)
-        driver.get('https://www.instagram.com/?hl=ja')
-        l=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
-        l.send_keys('poscagram')
-        time.sleep(1)
-        r=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
-        r.send_keys(settings.IGKEY)
-        time.sleep(1)
-        driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]').click()
-        time.sleep(1)
-        driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button').click()
-        time.sleep(1)
-        driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]').click()
-        time.sleep(1)
-        driver.get('https://www.instagram.com/poscagram/tagged/')
-        driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div[2]/article/div/div/div/div[1]').click()
-        img = driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/div[2]/div/div[1]/div[2]/div/div/div/ul/li[2]/div/div/div/div[1]/div[1]/img')
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--no-sandbox')
+    driver = webdriver.Chrome(options=options)
+    driver.implicitly_wait(5)
+    driver.set_page_load_timeout(100)
+    #インスタグラムを検索
+    driver.get('https://www.instagram.com/?hl=ja')
+    #ユーザーネーム入力
+    l=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
+    l.send_keys('poscagram')
+    time.sleep(1)
+    #パスワード入力
+    r=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
+    r.send_keys(settings.IGKEY)
+    time.sleep(1)
+    #インスタグラムにログイン
+    driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]').click()
+    time.sleep(1)
+    #情報を保存しない
+    driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button').click()
+    time.sleep(1)
+    #お知らせを受け取らない
+    driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]').click()
+    time.sleep(1)
+    #タグ付けさえた投稿を検索
+    driver.get('https://www.instagram.com/poscagram/tagged/')
+    #最新の投稿を開く
+    driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div[2]/article/div/div/div[1]/div[1]').click()
+    #メイン画像を取得
+    try:
+        main_img = driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/div[2]/div/div/div[1]/div[1]/img')
+    except:
+        main_img = driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/div[2]/div/div[1]/div[2]/div/div/div/ul/li[2]/div/div/div/div[1]/div[1]/img')
+    main_src = main_img.get_attribute('src')
+    print("画像の枚数によって変わる？")
+    #usernameを取得
+    ign=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/header/div[2]/div[1]/div[1]/span/a')
+    print('いい感じ！')
+    igname=ign.text
+    print(igname)
+    #トップ画像を取得
+    top_img=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/header/div[1]/div/a/img')
+    top_src=top_img.get_attribute('src')
+    print('トプ画取得')
+    #続きを読む
+    try:
+        readmore=driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/div[3]/div[1]/div/div/div[1]/div/span/span[2]/button')
+    except:
+        pass
+    else:
+        readmore.click()
+    message=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/div[3]/div[1]/ul/div/li/div/div/div[2]/span')
+    text=message.text
+    print(text)
+    #taged_dataに投稿を保存
+    taged_data(igname=igname,top_img_url=top_src,main_img_url=main_img,text=text).save()
+    data=str(igname)+'\n'+str(top_src)+'\n'+str(main_src)+'\n'+str(text)
+    print(data)
+    return HttpResponse(data)
+"""
+    taged=taged_data(igname=igname,top_img_url=top_src,main_img_url=main_src,text=text)
+    taged.save()
+
+    #2つ目の投稿へ
+    driver.find_element_by_xpath('/html/body/div[5]/div[1]/div/div/a').click()
+    for i in range(2):
+        #画像を取得
+        img = driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/div[2]/div/div/div[1]/div[1]/img')
+        #画像のurlを取得
         src = img.get_attribute('src')
-        urllib.request.urlretrieve(src, os.path.join('media', 'momo.png'))
+        #3つ目以降の投稿へ
+        driver.find_element_by_xpath('/html/body/div[5]/div[1]/div/div/a[2]').click()
+        time.sleep(1)
+"""
 
 
-        return HttpResponse('ふぅ、、完了だぜ。')
+
+#画像をフォルダを指定して保存する
+#img_name='img_'+str(i)+'.png'
+#urllib.request.urlretrieve(src, os.path.join('media', img_name))

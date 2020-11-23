@@ -28,8 +28,9 @@
           url: "{% url 'st' %}",
           method: form.prop("method"),
           data: form.serialize(),
-          timeout: 10000,
+          timeout: 1000000,
           dataType: "text",
+
         })
         .done(function(data){
           alert("done");

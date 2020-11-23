@@ -51,12 +51,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'igposca',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.line',
-    'cloudinary_storage',
-    'cloudinary',
 ]
 
 ################
@@ -198,13 +192,13 @@ AUTHENTICATION_BACKENDS = (
 )
 
 
-SOCIALACCOUNT_PROVIDERS = {
-    'line': {
-        'AUTH_PARAMS': {'bot_prompt':'aggressive','prompt':'consent'},
-        'SCOPE': ['profile','openid'],
-    }
+#SOCIALACCOUNT_PROVIDERS = {
+    #'line': {
+    #    'AUTH_PARAMS': {'bot_prompt':'aggressive','prompt':'consent'},
+    #    'SCOPE': ['profile','openid'],
+    #}
     #bot_prompt=normal&prompt=consent'prompt':'consent','redirect_uri':callback_uri
-}
+#}
 
 
 #####heroku#####
@@ -252,7 +246,7 @@ if not DEBUG:
 #}
 
 IGKEY='poscagram_key'
-
+AUTH_USER_MODEL = 'igposca.MyUser'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
