@@ -109,7 +109,10 @@ def search_tags_ajax_view(request):
     driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button').click()
     time.sleep(1)
     #お知らせを受け取らない
-    driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]').click()
+    try:
+        driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]').click()
+    except:
+        pass
     time.sleep(1)
     #タグ付けさえた投稿を検索
     driver.get('https://www.instagram.com/poscagram/tagged/')
