@@ -163,6 +163,9 @@ def search_tags_ajax_view(request):
 """
 
 
+def ajax_test_view(request):
+    return HttpResponse('ajax接続完了')
+
 
 #画像をフォルダを指定して保存する
 #img_name='img_'+str(i)+'.png'
