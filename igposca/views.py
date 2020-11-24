@@ -17,7 +17,6 @@ def save_post(driver,count):
         ign=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/header/div[2]/div[1]/div[1]/span/a')
     except:
         #print('ignameを取得出来ませんでした')
-        pass
         try:
             ign=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/header/div[2]/div[1]/div/span/a')
         except:
