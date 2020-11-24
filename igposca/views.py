@@ -16,14 +16,16 @@ def save_post(driver,count):
     try:
         ign=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/header/div[2]/div[1]/div[1]/span/a')
     except:
-        print('ignameを取得出来ませんでした')
+        #print('ignameを取得出来ませんでした')
+        pass
         try:
             ign=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/header/div[2]/div[1]/div/span/a')
         except:
-            print('poscagramのignameを取得出来ませんでした')
+            pass
+            #print('poscagramのignameを取得出来ませんでした')
     #usernameを取得
     igname=ign.text
-    print(igname)
+    #print(igname)
     if igname == 'poscagram':
         p_point=posca_point.objects.get(id=1)
         if p_point.count == 0:
@@ -60,11 +62,11 @@ def save_post(driver,count):
     except:
         main_img = driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/div[2]/div/div[1]/div[2]/div/div/div/ul/li[2]/div/div/div/div[1]/div[1]/img')
     main_src = main_img.get_attribute('src')
-    print("画像の枚数によって変わる？")
+    #print("画像の枚数によって変わる？")
     #トップ画像を取得
     top_img=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/header/div[1]/div/a/img')
     top_src=top_img.get_attribute('src')
-    print('トプ画取得')
+    #print('トプ画取得')
     #続きを読む
     try:
         readmore=driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/div[3]/div[1]/div/div/div[1]/div/span/span[2]/button')
@@ -80,7 +82,7 @@ def save_post(driver,count):
         text=message.text
     else:
         text=''
-    print(text)
+    #print(text)
     #taged_dataに投稿を保存
     taged_data(igname=igname,top_img_url=top_src,main_img_url=main_src,text=text,page_url=cur_url).save()
 
@@ -208,9 +210,10 @@ def search_tags_ajax_view(request):
     count=0
     while save_post(driver=driver,count=count):
         count+=1
-        print('yeah')
+        #print('yeah')
     else:
-        print('ふぅ、、疲れたぜ')
+        pass
+        #print('ふぅ、、疲れたぜ')
     data='おまえは天才'
     return HttpResponse(data)
 
