@@ -174,7 +174,7 @@ def search_tags_ajax_view(request):
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--no-sandbox')
     driver = webdriver.Chrome(options=options)
-    driver.implicitly_wait(5)
+    driver.implicitly_wait(30)
     driver.set_page_load_timeout(100)
     #インスタグラムを検索
     driver.get('https://www.instagram.com')
