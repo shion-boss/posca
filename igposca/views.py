@@ -299,8 +299,8 @@ def ajax_test_view(request):
         else:
             print(str(i) + "　is can send_key")
     """
-
-    return HttpResponse('ajax接続完了')
+    p_point=posca_point.objects.order_by("id").first()
+    return HttpResponse('ajax接続完了'+str(p_point.count))
     #driver.find_element_by_xpath('/html/body/div[1]/section/nav[2]/div/div/div[2]/div/div/div[3]').click()
 
 """
