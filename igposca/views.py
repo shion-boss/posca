@@ -26,7 +26,7 @@ def save_post(driver,count):
     igname=ign.text
     #print(igname)
     if igname == 'poscagram':
-        p_point=posca_point.objects.get(id=1)
+        p_point=posca_point.objects.order_by("id").first()
         if p_point.count == 0:
             p_point.count=1
             p_point.save()
