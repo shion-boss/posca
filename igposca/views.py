@@ -215,10 +215,31 @@ def search_tags_ajax_view(request):
         pass
         #print('ふぅ、、疲れたぜ')
     data='おまえは天才'
+    driver.close()
     return HttpResponse(data)
 
 
 def ajax_test_view(request):
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--no-sandbox')
+    driver = webdriver.Chrome(options=options)
+    driver.implicitly_wait(5)
+    driver.set_page_load_timeout(100)
+    #インスタグラムを検索
+    driver.get('https://www.instagram.com')
+    #ユーザーネーム入力
+    l=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
+    l.send_keys('poscagram')
+    time.sleep(1)
+    #パスワード入力
+    r=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
+    r.send_keys(settings.IGKEY)
+    time.sleep(1)
+    #インスタグラムにログイン
+    driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]').click()
+    driver.close()
     """
     options = webdriver.ChromeOptions()
     #options.add_argument('--headless')
