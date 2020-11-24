@@ -73,6 +73,7 @@ class taged_data(models.Model):
     top_img_url=models.CharField(max_length=500)
     main_img_url=models.CharField(max_length=500)
     text=models.TextField(max_length=140)
+    page_url=models.CharField(max_length=100,blank=True,null=True)
 
 class target_address(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
@@ -87,3 +88,6 @@ class account(models.Model):
 class subscription(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     plan=models.CharField(max_length=30)
+
+class posca_point(models.Model):
+    count=models.IntegerField(default=0)

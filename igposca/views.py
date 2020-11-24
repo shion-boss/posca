@@ -7,10 +7,53 @@ import time
 from django.conf import settings
 import urllib
 import os
-from .models import taged_data
+from .models import taged_data,posca_point
+
 
 # Create your views here.
-def save_post(driver):
+def save_post(driver,count):
+    #poscagramの投稿か確認
+    try:
+        ign=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/header/div[2]/div[1]/div[1]/span/a')
+    except:
+        print('ignameを取得出来ませんでした')
+        try:
+            ign=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/header/div[2]/div[1]/div/span/a')
+        except:
+            print('poscagramのignameを取得出来ませんでした')
+    #usernameを取得
+    igname=ign.text
+    print(igname)
+    if igname == 'poscagram':
+        p_point=posca_point.objects.get(id=1)
+        if p_point.count == 0:
+            p_point.count=1
+            p_point.save()
+            if count == 0 and len(driver.find_elements_by_xpath('/html/body/div[5]/div[1]/div/div/a'))>0:
+                #2つ目の投稿へ
+                driver.find_element_by_xpath('/html/body/div[5]/div[1]/div/div/a').click()
+            elif len(driver.find_elements_by_xpath('/html/body/div[5]/div[1]/div/div/a[2]'))>0:
+                #3つ目以降の投稿へ
+                driver.find_element_by_xpath('/html/body/div[5]/div[1]/div/div/a[2]').click()
+            else:
+                return False
+            return True
+        else:
+            p_point.count=0
+            p_point.save()
+            return False
+    cur_url = driver.current_url
+    if taged_data.objects.filter(page_url=cur_url).exists():
+        if count == 0 and len(driver.find_elements_by_xpath('/html/body/div[5]/div[1]/div/div/a'))>0:
+            #2つ目の投稿へ
+            driver.find_element_by_xpath('/html/body/div[5]/div[1]/div/div/a').click()
+        elif len(driver.find_elements_by_xpath('/html/body/div[5]/div[1]/div/div/a[2]'))>0:
+            #3つ目以降の投稿へ
+            driver.find_element_by_xpath('/html/body/div[5]/div[1]/div/div/a[2]').click()
+        else:
+            return False
+
+        return True
     #メイン画像を取得
     try:
         main_img = driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/div[2]/div/div/div[1]/div[1]/img')
@@ -18,11 +61,6 @@ def save_post(driver):
         main_img = driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/div[2]/div/div[1]/div[2]/div/div/div/ul/li[2]/div/div/div/div[1]/div[1]/img')
     main_src = main_img.get_attribute('src')
     print("画像の枚数によって変わる？")
-    #usernameを取得
-    ign=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/header/div[2]/div[1]/div[1]/span/a')
-    print('いい感じ！')
-    igname=ign.text
-    print(igname)
     #トップ画像を取得
     top_img=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/header/div[1]/div/a/img')
     top_src=top_img.get_attribute('src')
@@ -34,15 +72,28 @@ def save_post(driver):
         pass
     else:
         readmore.click()
-
-    try:
+    if len(driver.find_elements_by_xpath('/html/body/div[5]/div[2]/div/article/div[3]/div[1]/ul/div/li/div/div/div[2]/span')) >0:
         message=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/div[3]/div[1]/ul/div/li/div/div/div[2]/span')
-    except:
+        text=message.text
+    elif len(driver.find_elements_by_xpath('/html/body/div[5]/div[2]/div/article/div[3]/div[1]/ul/ul[1]/div/li/div/div[1]/div[2]/span')) >0:
         message=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/div[3]/div[1]/ul/ul[1]/div/li/div/div[1]/div[2]/span')
-    text=message.text
+        text=message.text
+    else:
+        text=''
     print(text)
     #taged_dataに投稿を保存
-    taged_data(igname=igname,top_img_url=top_src,main_img_url=main_img,text=text).save()
+    taged_data(igname=igname,top_img_url=top_src,main_img_url=main_src,text=text,page_url=cur_url).save()
+
+    if count == 0 and len(driver.find_elements_by_xpath('/html/body/div[5]/div[1]/div/div/a'))>0:
+        #2つ目の投稿へ
+        driver.find_element_by_xpath('/html/body/div[5]/div[1]/div/div/a').click()
+    elif len(driver.find_elements_by_xpath('/html/body/div[5]/div[1]/div/div/a[2]'))>0:
+        #3つ目以降の投稿へ
+        driver.find_element_by_xpath('/html/body/div[5]/div[1]/div/div/a[2]').click()
+    else:
+        return False
+    time.sleep(1)
+    return True
 
 def index_view(request):
     params={
@@ -154,22 +205,95 @@ def search_tags_ajax_view(request):
     #最新の投稿を開く
     driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div[2]/article/div/div/div[1]/div[1]').click()
     ################################
-    save_post(driver=driver)
-    ########################
-    #2つ目の投稿へ
-    driver.find_element_by_xpath('/html/body/div[5]/div[1]/div/div/a').click()
-    for i in range(4):
-        save_post(driver=driver)
-        #3つ目以降の投稿へ
-        driver.find_element_by_xpath('/html/body/div[5]/div[1]/div/div/a[2]').click()
-        time.sleep(1)
-
+    count=0
+    while save_post(driver=driver,count=count):
+        count+=1
+        print('yeah')
+    else:
+        print('ふぅ、、疲れたぜ')
     data='おまえは天才'
     return HttpResponse(data)
 
 
 def ajax_test_view(request):
+    """
+    options = webdriver.ChromeOptions()
+    #options.add_argument('--headless')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--no-sandbox')
+    mobile_emulation = { "deviceName": "iPhone X" }
+    options.add_experimental_option("mobileEmulation", mobile_emulation)
+    driver = webdriver.Chrome(options=options)
+    driver.implicitly_wait(10)
+    driver.get('https://www.instagram.com/?hl=ja')
+    driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div/div/div/div[2]/button').click()
+    l=driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div/div/div/form/div[1]/div[3]/div/label/input')
+    l.send_keys('poscagram')
+    time.sleep(1)
+    #パスワード入力
+    r=driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div/div/div/form/div[1]/div[4]/div/label/input')
+    r.send_keys(settings.IGKEY)
+    time.sleep(1)
+    driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div/div/div/form/div[1]/div[6]/button').click()
+
+    try:
+        driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div/div/button').click()
+    except:
+        pass
+    try:
+        driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]').click()
+    except:
+        pass
+    try:
+        driver.find_element_by_xpath('/html/body/div[5]/div/div/div/div[3]/button[2]').click()
+    except:
+        pass
+
+    #j=driver.find_element_by_xpath('/html/body/div[1]/form/input')
+    input=driver.find_elements_by_tag_name('input')
+    vvv=0
+    for i in input:
+        try:
+            driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div/div/button').click()
+        except:
+            pass
+        try:
+            driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]').click()
+        except:
+            pass
+        try:
+            driver.find_element_by_xpath('/html/body/div[5]/div/div/div/div[3]/button[2]').click()
+        except:
+            pass
+        vvv+=1
+        if vvv !=1:
+            continue
+        try:
+            i.send_keys("C:/Users/ssstl/OneDrive/デスクトップ/2021_newyearcamp_2Days/2021_newyearcamp_2Days/AdobeStock_277473598.jpeg")
+        except:
+            print(str(i) + "　is can't send_key")
+
+        else:
+            print(str(i) + "　is can send_key")
+    """
+
     return HttpResponse('ajax接続完了')
+    #driver.find_element_by_xpath('/html/body/div[1]/section/nav[2]/div/div/div[2]/div/div/div[3]').click()
+
+"""
+j=driver.find_element_by_xpath('/html/body/div[1]/section/nav[2]/div/div/form/input')
+j.send_keys("C:/Users/ssstl/OneDrive/デスクトップ/2021_newyearcamp_2Days/2021_newyearcamp_2Days/AdobeStock_277473598.jpeg")
+j.send_keys("C:/Users/ssstl/OneDrive/デスクトップ/2021_newyearcamp_2Days/2021_newyearcamp_2Days/AdobeStock_277473598.jpeg")
+j=driver.find_element_by_xpath('/html/body/div[1]/section/nav[2]/div/div/form/input')
+j.send_keys("C:/Users/ssstl/OneDrive/デスクトップ/2021_newyearcamp_2Days/2021_newyearcamp_2Days/AdobeStock_277473598.jpeg")
+return HttpResponse('ajax接続完了')
+profile
+/html/body/div[1]/section/main/div[1]/form/input
+    /html/body/div[1]/form/input
+    /html/body/div[1]/section/main/section/div[1]/div/div/div/div/button/form/input
+    /html/body/div[1]/section/nav[2]/div/div/form/input
+"""
+#.tb_sK
 
 
 #画像をフォルダを指定して保存する
