@@ -93,7 +93,6 @@ def save_post(driver,count):
         driver.find_element_by_xpath('/html/body/div[5]/div[1]/div/div/a[2]').click()
     else:
         return False
-    time.sleep(1)
     return True
 
 def index_view(request):
@@ -174,6 +173,10 @@ def search_tags_ajax_view(request):
     options.add_argument('--disable-gpu')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--no-sandbox')
+    options.add_argument('--disable-extensions') #すべての拡張機能を無効にする。ユーザースクリプトも無効
+    options.add_argument('--proxy-server="direct://"') # Proxy経由ではなく直接接続する
+    options.add_argument('--proxy-bypass-list=*')      # すべてのホスト名
+    options.add_argument('--start-maximized')
     driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(30)
     driver.set_page_load_timeout(100)
@@ -182,26 +185,21 @@ def search_tags_ajax_view(request):
     #ユーザーネーム入力
     l=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
     l.send_keys('poscagram')
-    time.sleep(1)
     #パスワード入力
     r=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
     r.send_keys(settings.IGKEY)
-    time.sleep(1)
     #インスタグラムにログイン
     driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]').click()
-    time.sleep(1)
     #情報を保存しない
     try:
         driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button').click()
     except:
         pass
-    time.sleep(1)
     #お知らせを受け取らない
     try:
         driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]').click()
     except:
         pass
-    time.sleep(1)
     #タグ付けさえた投稿を検索
     driver.get('https://www.instagram.com/poscagram/tagged/')
     #最新の投稿を開く
