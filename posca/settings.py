@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'igposca',
+    'igposca'
 ]
 
 ################
@@ -231,6 +231,12 @@ if not DEBUG:
     IGKEY=os.environ['IGKEY']
     import django_heroku #追加
     django_heroku.settings(locals()) #追加
+    CACHES = {
+        "default": {
+             "BACKEND": "redis_cache.RedisCache",
+             "LOCATION": os.environ.get('REDIS_URL'),
+        }
+    }
 
 #####heroku#####
 
@@ -247,6 +253,8 @@ if not DEBUG:
 
 IGKEY='poscagram_key'
 AUTH_USER_MODEL = 'igposca.MyUser'
+
+
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
