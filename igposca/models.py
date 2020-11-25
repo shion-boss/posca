@@ -91,3 +91,12 @@ class subscription(models.Model):
 
 class posca_point(models.Model):
     count=models.IntegerField(default=0)
+
+
+
+
+
+
+
+class Widget(models.Model):
+    name = models.CharField(max_length=140)

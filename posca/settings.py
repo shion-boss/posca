@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'igposca'
+    'igposca',
+    'django_celery_results',
 ]
 
 ################
@@ -238,6 +239,7 @@ if not DEBUG:
         }
     }
 
+
 #####heroku#####
 
 #if not DEBUG:
@@ -255,7 +257,32 @@ IGKEY='poscagram_key'
 AUTH_USER_MODEL = 'igposca.MyUser'
 
 
+###### django-celery configuations ######
+from djcelery import setup_loader
+setup_loader()
+# Tasks will be executed asynchronously.
+CELERY_ALWAYS_EAGER = False
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
 
+
+BROKER_URL = 'redis://localhost'
+CELERY_RESULT_BACKEND = 'redis'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT = ['json']
+
+# django setting.
+CELERY_BROKER_URL = "redis://:p1f265209b0eaa684e1120f90ebf37bc827ff748086f41cfbc9447a4db99a1a2b@ec2-107-23-67-63.compute-1.amazonaws.com:18499"
+CELERY_CACHE_BACKEND = 'django-cache'
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+    }
+}
+#celery -A posca worker -l INFO
+#celery -A posca worker --concurrency=1
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
