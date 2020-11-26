@@ -4,8 +4,7 @@ import os
 from celery import Celery
 
 # set the default Django settings module for the 'celery' program.
-settings = os.getenv(
-   "DJANGO_SETTINGS_MODULE", "posca.settings")
+settings = os.getenv("DJANGO_SETTINGS_MODULE", "posca.settings")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings)
 
 app = Celery('posca')
