@@ -268,27 +268,29 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_ACCEPT_CONTENT = ['json']
 
 """
-from datetime import timedelta
-from celery.schedules import crontab
-CELERY_BEAT_SCHEDULE = {
-    'task-number-one': {
-        'task': 'task_number_one',
-        'schedule': timedelta(minutes=1),#10分おきに実行
+if not DEBUG:
+    from datetime import timedelta
+    from celery.schedules import crontab
+    CELERY_BEAT_SCHEDULE = {
+        'task-number-one': {
+            'task': 'task_number_one',
+            'schedule': timedelta(minutes=1),#10分おきに実行
 
-    },
-    'task-number-two': {
-        'task': 'task_number_two',
-        'schedule': timedelta(minutes=1),#1分おきに実行
+        },
+        'task-number-two': {
+            'task': 'task_number_two',
+            'schedule': timedelta(minutes=1),#1分おきに実行
+        }
     }
-}
-#'args': (10, 15),
-#'schedule': crontab(minute=30, hour=21),
-CELERY_BROKER_URL = os.environ['REDIS_URL']
-CELERY_RESULT_BACKEND = os.environ['REDIS_URL']
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Asia/Tokyo'
+    #'args': (10, 15),
+    #'schedule': crontab(minute=30, hour=21),
+    CELERY_BROKER_URL = os.environ['REDIS_URL']
+    CELERY_RESULT_BACKEND = os.environ['REDIS_URL']
+    CELERY_ACCEPT_CONTENT = ['application/json']
+    CELERY_RESULT_SERIALIZER = 'json'
+    CELERY_TASK_SERIALIZER = 'json'
+    CELERY_TIMEZONE = 'Asia/Tokyo'
+    CELERY_TASK_TRACK_STARTED = True # taskが開始状態になったことを確認できるための設定（後述）
 #celery -A posca worker -l INFO
 #celery -A posca worker --concurrency=1
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

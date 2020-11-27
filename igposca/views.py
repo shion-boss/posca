@@ -8,6 +8,7 @@ from django.conf import settings
 import urllib
 import os
 from .models import taged_data,posca_point
+from .tasks import some_task
 
 
 # Create your views here.
