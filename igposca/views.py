@@ -8,7 +8,7 @@ from django.conf import settings
 import urllib
 import os
 from .models import taged_data,posca_point
-from posca.tasks import test_task
+from .tasks import test_task,add
 from django_celery_results.models import TaskResult
 
 
@@ -98,8 +98,8 @@ def save_post(driver,count):
     return True
 
 def index_view(request):
-    test_task.delay()
-    return HttpResponse('okです')
+    b=add.delay(10,5)
+    return HttpResponse(b)
 
 def index2_view(request):
     params={

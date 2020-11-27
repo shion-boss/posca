@@ -1,10 +1,11 @@
 from __future__ import absolute_import, unicode_literals
 from django.http import HttpResponse
 from celery import shared_task
-from igposca.models import Widget
+from .models import Widget
+from posca.celery import app
 
 
-@shared_task
+@app.task
 def add(x, y):
     return x + y
 
