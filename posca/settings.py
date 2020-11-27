@@ -283,7 +283,7 @@ if not DEBUG:
     #'schedule': crontab(minute=30, hour=21),
     CELERY_ALWAYS_EAGER = False
     CELERY_BROKER_URL = os.environ.get('REDIS_URL')
-    CELERY_RESULT_BACKEND = os.environ.get('DATABASE_URL')
+    CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
     CELERY_ACCEPT_CONTENT = ['application/json']
     CELERY_RESULT_SERIALIZER = 'json'
     CELERY_TASK_SERIALIZER = 'json'
