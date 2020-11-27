@@ -13,8 +13,6 @@ def add(x, y):
 
 @app.task
 def test_task(task_id):
-    task_result = TaskResult(task_id=task_id)
-    task_result.save()
     return 'okだよ'
 
 
