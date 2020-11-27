@@ -98,7 +98,7 @@ def save_post(driver,count):
 
 def index_view(request):
     some_task.delay()
-    return HttpResponse('おｋです')
+    return HttpResponse(message)
 
 def index2_view(request):
     params={

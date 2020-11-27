@@ -6,7 +6,8 @@ from posca.celery import app
 @app.task(name='task_number_one')
 def some_task():
     taged_data(igname='test',top_img_url='a',main_img_url='b',text='',page_url='https://abe').save()
-    return HttpResponse('tasks１完了です')
+    message='tasks１完了です'
+    return message
 
 
 from posca.celery import app
@@ -14,4 +15,5 @@ from posca.celery import app
 @app.task(name='task_number_two')
 def add_numbers():
     taged_data(igname='test',top_img_url='a',main_img_url='b',text='',page_url='https://abe').save()
-    return HttpResponse('tasks２完了です')
+    message='tasks2完了です'
+    return message
