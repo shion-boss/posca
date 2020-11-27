@@ -274,13 +274,14 @@ CELERY_BEAT_SCHEDULE = {
     'task-number-one': {
         'task': 'task_number_one',
         'schedule': timedelta(minutes=1),#10分おきに実行
-        'args': (10, 15),
+
     },
     'task-number-two': {
         'task': 'task_number_two',
         'schedule': timedelta(minutes=1),#1分おきに実行
     }
 }
+#'args': (10, 15),
 #'schedule': crontab(minute=30, hour=21),
 CELERY_BROKER_URL = os.environ['REDIS_URL']
 CELERY_RESULT_BACKEND = os.environ['REDIS_URL']
