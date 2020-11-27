@@ -8,7 +8,7 @@ from django.conf import settings
 import urllib
 import os
 from .models import taged_data,posca_point
-from .tasks import some_task
+from .tasks import some_task,test_task
 
 
 # Create your views here.
@@ -97,7 +97,7 @@ def save_post(driver,count):
     return True
 
 def index_view(request):
-    some_task()
+    test_task.delay()
     return HttpResponse('okです')
 
 def index2_view(request):

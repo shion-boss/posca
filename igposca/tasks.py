@@ -23,6 +23,12 @@ from .models import Widget
 def add(x, y):
     return x + y
 
+@shared_task
+def text_task():
+    taged_data(igname='test',top_img_url='a',main_img_url='b',text='',page_url='https://abe').save()
+    message='tasks2完了です'
+    return message
+
 
 @shared_task
 def mul(x, y):
