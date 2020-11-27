@@ -96,7 +96,7 @@ def save_post(driver,count):
     return True
 
 def index_view(request):
-    HttpResponse('おｋです')
+    return HttpResponse('おｋです')
 
 def index2_view(request):
     params={
