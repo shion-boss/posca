@@ -1,6 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 from celery import task
-import ..models
+import igposca.models
 
 @task(name='task-number-one')
 def some_task():
