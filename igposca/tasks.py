@@ -8,7 +8,7 @@ import time
 
 @app.task
 def add(x, y):
-    time.sleep(100)
+    Widget(name='こんにちわ！').save()
     return x + y
 
 @shared_task
