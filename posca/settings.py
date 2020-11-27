@@ -288,6 +288,7 @@ if not DEBUG:
     CELERY_TASK_SERIALIZER = 'json'
     CELERY_TIMEZONE = 'Asia/Tokyo'
     CELERY_TASK_TRACK_STARTED = True # taskが開始状態になったことを確認できるための設定（後述）
+    
 #celery -A posca worker -l INFO
 #celery -A posca worker --concurrency=1
 
