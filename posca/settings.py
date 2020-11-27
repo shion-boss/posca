@@ -291,6 +291,12 @@ if not DEBUG:
     CELERY_TASK_SERIALIZER = 'json'
     CELERY_TIMEZONE = 'Asia/Tokyo'
     CELERY_TASK_TRACK_STARTED = True # taskが開始状態になったことを確認できるための設定（後述）
+    CACHES = {
+        "default": {
+             "BACKEND": "redis_cache.RedisCache",
+             "LOCATION": os.environ.get('REDIS_URL'),
+        }
+    }
 #celery -A posca worker -l INFO
 #celery -A posca worker --concurrency=1
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
