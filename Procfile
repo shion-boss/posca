@@ -1,2 +1,2 @@
 web: gunicorn posca.wsgi
-worker: celery worker -A posca.celery -l INFO
+worker: celery -A posca worker -B -l info

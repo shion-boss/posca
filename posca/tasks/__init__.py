@@ -1,4 +1,4 @@
-from ..celery import app
+from igposca.celery import app
 from ..models import taged_data,posca_point
 
 @app.task()

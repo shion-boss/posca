@@ -232,6 +232,7 @@ if not DEBUG:
     IGKEY=os.environ['IGKEY']
     import django_heroku #追加
     django_heroku.settings(locals()) #追加
+    """
     CACHES = {
         "default": {
              "BACKEND": "redis_cache.RedisCache",
@@ -240,6 +241,7 @@ if not DEBUG:
     }
     BROKER_URL = os.environ.get("REDIS_URL")
     CELERY_RESULT_BACKEND = os.environ.get("REDIS_URL")
+    """
 
 
 #####heroku#####
@@ -253,6 +255,7 @@ AUTH_USER_MODEL = 'igposca.MyUser'
 from djcelery import setup_loader
 setup_loader()
 # Tasks will be executed asynchronously.
+"""
 CELERY_ALWAYS_EAGER = False
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
@@ -264,6 +267,26 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_ACCEPT_CONTENT = ['json']
 
+"""
+from datetime import timedelta
+from celery.schedules import crontab
+CELERY_BEAT_SCHEDULE = {
+    'task-number-one': {
+        'task': 'task_number_one',
+        'schedule': timedelta(minutes=10),#10分おきに実行
+        'args': (10, 15),
+    },
+    'task-number-two': {
+        'task': 'task_number_two',
+        'schedule': crontab(minute=30, hour=21),
+    }
+}
+CELERY_BROKER_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379')
+CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL', 'redis://localhost:6379')
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Tokyo'
 #celery -A posca worker -l INFO
 #celery -A posca worker --concurrency=1
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
