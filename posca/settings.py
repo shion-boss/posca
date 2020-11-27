@@ -278,9 +278,10 @@ CELERY_BEAT_SCHEDULE = {
     },
     'task-number-two': {
         'task': 'task_number_two',
-        'schedule': crontab(minute=30, hour=21),
+        'schedule': timedelta(minutes=1),#1分おきに実行
     }
 }
+#'schedule': crontab(minute=30, hour=21),
 CELERY_BROKER_URL = os.environ['REDIS_URL']
 CELERY_RESULT_BACKEND = os.environ['REDIS_URL']
 CELERY_ACCEPT_CONTENT = ['application/json']
