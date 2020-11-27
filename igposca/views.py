@@ -98,8 +98,8 @@ def save_post(driver,count):
     return True
 
 def index_view(request):
-    b=add.delay(10,5)
-    return HttpResponse(b)
+    add.delay(10,5)
+    return HttpResponse('oke')
 
 def index2_view(request):
     params={
