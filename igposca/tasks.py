@@ -1,6 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 from celery import task
-from . import models
+from .models import taged_data
 from django.http import HttpResponse
 
 @task(name='task_number_one')
