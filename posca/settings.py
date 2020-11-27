@@ -281,6 +281,7 @@ if not DEBUG:
     }
     #'args': (10, 15),
     #'schedule': crontab(minute=30, hour=21),
+    CELERY_ALWAYS_EAGER = False
     CELERY_BROKER_URL = os.environ.get('REDIS_URL')
     CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
     CELERY_ACCEPT_CONTENT = ['application/json']
@@ -288,7 +289,7 @@ if not DEBUG:
     CELERY_TASK_SERIALIZER = 'json'
     CELERY_TIMEZONE = 'Asia/Tokyo'
     CELERY_TASK_TRACK_STARTED = True # taskが開始状態になったことを確認できるための設定（後述）
-    
+
 #celery -A posca worker -l INFO
 #celery -A posca worker --concurrency=1
 
