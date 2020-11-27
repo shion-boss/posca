@@ -8,7 +8,7 @@ from .models import Widget
 def add(x, y):
     return x + y
 
-@app.task
+@shared_task
 def test_task():
     message='aiueo'
     return message
