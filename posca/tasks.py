@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 from django.http import HttpResponse
 from celery import shared_task
-from .models import Widget
+from igposca.models import Widget
 
 
 @shared_task
