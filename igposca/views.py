@@ -9,8 +9,11 @@ import urllib
 import os
 from .models import taged_data,posca_point
 
+from ..celery import app
+
 
 # Create your views here.
+@app.task()
 def save_post(driver,count):
     #poscagramの投稿か確認
     try:
@@ -96,6 +99,7 @@ def save_post(driver,count):
     return True
 
 def index_view(request):
+
     params={
         'a':'1',
     }
@@ -206,7 +210,7 @@ def search_tags_ajax_view(request):
     driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div[2]/article/div/div/div[1]/div[1]').click()
     ################################
     count=0
-    while save_post(driver=driver,count=count):
+    while save_post.delay(driver=driver,count=count):
         count+=1
         #print('yeah')
     else:
