@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-from .models import MyUser,taged_data,posca_point
+from .models import MyUser,taged_data,posca_point,Widget
 
 
 class UserCreationForm(forms.ModelForm):
@@ -84,3 +84,4 @@ admin.site.unregister(Group)
 admin.site.register(MyUser, UserAdmin)
 admin.site.register(taged_data)
 admin.site.register(posca_point)
+admin.site.register(widget)
