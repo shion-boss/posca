@@ -10,6 +10,7 @@ import os
 from .models import taged_data,posca_point
 from .tasks import test_task,add
 from django_celery_results.models import TaskResult
+from celery.result import AsyncResult
 
 
 # Create your views here.
@@ -100,8 +101,8 @@ def save_post(driver,count):
 def index_view(request):
     task=add.delay(10,5)
     task_id = task.id
-    test_task.delay(task_id)
-    return HttpResponse(task_id)
+    a=AsyncResult(task_id).status
+    return HttpResponse(a)
 
 def index2_view(request):
     params={
