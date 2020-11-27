@@ -100,10 +100,8 @@ def save_post(driver,count):
 def index_view(request):
     task=add.delay(10,5)
     task_id = task.id
-    tr = TaskResult.objects.get(task_id=task_id)
-    status=tr.status
-    result=tr.result
-    return HttpResponse(task_id+':'+status+':'+results)
+    tr = TaskResult.objects.all()
+    return HttpResponse(tr)
 
 def index2_view(request):
     params={
