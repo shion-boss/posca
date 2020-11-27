@@ -96,11 +96,7 @@ def save_post(driver,count):
     return True
 
 def index_view(request):
-
-    params={
-        'a':'1',
-    }
-    return render(request,'igposca/index.html',params)
+    HttpResponse('おｋです')
 
 def index2_view(request):
     params={
