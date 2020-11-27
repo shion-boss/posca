@@ -3,10 +3,12 @@ from django.http import HttpResponse
 from celery import shared_task
 from .models import Widget
 from posca.celery import app
+import time
 
 
 @app.task
 def add(x, y):
+    time.sleep(100)
     return x + y
 
 @shared_task
