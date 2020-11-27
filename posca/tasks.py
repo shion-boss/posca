@@ -1,17 +1,5 @@
 from __future__ import absolute_import, unicode_literals
 from django.http import HttpResponse
-from celery import app
-
-@app.task(name='task_number_one')
-def some_task():
-    return HttpResponse('tasks１完了です')
-
-
-@app.task(name='task_number_two')
-def add_numbers():
-    message='tasks2完了です'
-    return HttpResponse(message)
-
 from celery import shared_task
 from .models import Widget
 
