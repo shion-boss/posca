@@ -275,10 +275,6 @@ if not DEBUG:
             'args': (10, 15),
 
         },
-        'task-number-two': {
-            'task': 'task_number_two',
-            'schedule': timedelta(minutes=1),#1分おきに実行
-        }
     }
     #'args': (10, 15),
     #'schedule': crontab(minute=30, hour=21),
