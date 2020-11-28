@@ -105,8 +105,9 @@ def index_view(request):
     return HttpResponse(a)
 
 def index2_view(request):
+    b=mul(4,5).delay()
     params={
-        'a':'b',
+        'a':b,
     }
     return render(request,'igposca/index.html',params)
 
