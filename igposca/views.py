@@ -8,7 +8,7 @@ from django.conf import settings
 import urllib
 import os
 from .models import taged_data,posca_point
-from .tasks import test_task,add
+from .tasks import test_task,add,mul
 from django_celery_results.models import TaskResult
 from celery.result import AsyncResult
 
