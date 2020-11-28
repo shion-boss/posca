@@ -1,4 +1,9 @@
 import random,time
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from .models import taged_data,posca_point
+
+
 def random_time():
     t=random.uniform(0, 3)
     time.sleep(t)
@@ -6,6 +11,7 @@ def random_time():
 
 
 def save_post(driver,count):
+    random_time()
     #poscagramの投稿か確認
     try:
         ign=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/header/div[2]/div[1]/div[1]/span/a')

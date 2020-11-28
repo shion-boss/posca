@@ -1,13 +1,19 @@
 from __future__ import absolute_import, unicode_literals
 from django.http import HttpResponse
 from celery import shared_task
-from .models import Widget
+from .models import Widget,taged_data,posca_point
 from posca.celery import app
 import time
 from django_celery_results.models import TaskResult
 from .pm import save_post,random_time
 from celery.decorators import periodic_task
 from datetime import timedelta
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from django.conf import settings
+import os
+from django_celery_results.models import TaskResult
+from celery.result import AsyncResult
 
 
 
@@ -48,7 +54,7 @@ def search_taged():
     driver.set_page_load_timeout(100)
     #インスタグラムを検索
     driver.get('https://www.instagram.com')
-
+    random_time()
     #ユーザーネーム入力
     l=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
     l.send_keys('poscagram')
@@ -81,3 +87,4 @@ def search_taged():
         #print('ふぅ、、疲れたぜ')
     data='おまえは天才'
     driver.close()
+    return data
