@@ -14,7 +14,7 @@ def add(x, y):
 from celery.decorators import periodic_task
 from datetime import timedelta
 
-@periodic_task(run_every=timedelta(seconds=10))
+@periodic_task(run_every=timedelta(seconds=10000))
 def test_task():
     Widget(name='こんにた').save()
     return 'okだよ'
