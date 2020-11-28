@@ -268,16 +268,12 @@ CELERY_ACCEPT_CONTENT = ['json']
 if not DEBUG:
     from datetime import timedelta
     from celery.schedules import crontab
-    """
     CELERY_BEAT_SCHEDULE = {
         'task-number-one': {
-            'task': 'task_number_one',
-            'schedule': timedelta(minutes=2),#10分おきに実行
-            'args': (10, 15),
-
+            'task': 'task_search_taged',
+            'schedule': timedelta(minutes=5),
         },
     }
-    """
     #'args': (10, 15),
     #'schedule': crontab(minute=30, hour=21),
     CELERY_ALWAYS_EAGER = False
