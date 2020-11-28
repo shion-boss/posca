@@ -20,7 +20,7 @@ def test_task():
     return 'okだよ'
 
 
-@shared_task
+@app.task(name='task_number_one')
 def mul(x, y):
     return x * y
 
