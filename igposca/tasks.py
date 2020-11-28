@@ -11,8 +11,12 @@ from django_celery_results.models import TaskResult
 def add(x, y):
     return x + y
 
-@app.task
-def test_task(task_id):
+from celery.decorators import periodic_task
+from datetime import timedelta
+
+@periodic_task(run_every=timedelta(seconds=30))
+def test_task():
+    Widget(name='こんにた')
     return 'okだよ'
 
 
