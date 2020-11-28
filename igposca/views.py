@@ -105,7 +105,7 @@ def index_view(request):
     return HttpResponse(a)
 
 def index2_view(request):
-    b=mul(4,5).delay()
+    b=mul.delay(4,5)
     params={
         'a':b,
     }

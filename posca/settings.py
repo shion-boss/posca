@@ -271,7 +271,7 @@ if not DEBUG:
     CELERY_BEAT_SCHEDULE = {
         'task-number-one': {
             'task': 'task_number_one',
-            'schedule': timedelta(minutes=1),#10分おきに実行
+            'schedule': timedelta(minutes=2),#10分おきに実行
             'args': (10, 15),
 
         },

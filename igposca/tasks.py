@@ -9,6 +9,8 @@ from django_celery_results.models import TaskResult
 
 @app.task
 def add(x, y):
+    time.sleep(600)
+    Widget(name='10分間もよく耐えた！').save()
     return x + y
 
 from celery.decorators import periodic_task
@@ -22,6 +24,7 @@ def test_task():
 
 @app.task(name='task_number_one')
 def mul(x, y):
+    Widget(name='予定通りだな').save()
     return x * y
 
 
