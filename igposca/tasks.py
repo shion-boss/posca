@@ -15,7 +15,7 @@ def add(x, y):
 
 from celery.decorators import periodic_task
 from datetime import timedelta
-
+"""
 @periodic_task(run_every=timedelta(seconds=10000))
 def test_task():
     Widget(name='こんにた').save()
@@ -27,7 +27,7 @@ def mul(x, y):
     Widget(name='予定通りだな').save()
     return x * y
 
-
+"""
 @shared_task
 def xsum(numbers):
     return sum(numbers)
