@@ -7,7 +7,7 @@ from .models import taged_data,posca_point
 def random_time():
     t=random.uniform(0, 3)
     time.sleep(t)
-    return True
+    return t
 
 
 def save_post(driver,count):

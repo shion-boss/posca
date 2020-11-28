@@ -271,7 +271,7 @@ if not DEBUG:
     CELERY_BEAT_SCHEDULE = {
         'task-number-one': {
             'task': 'task_search_taged',
-            'schedule': timedelta(minutes=5),
+            'schedule': timedelta(minutes=24*60),
         },
     }
     #'args': (10, 15),
