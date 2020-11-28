@@ -16,7 +16,7 @@ from datetime import timedelta
 
 @periodic_task(run_every=timedelta(seconds=30))
 def test_task():
-    Widget(name='こんにた')
+    Widget(name='こんにた').save()
     return 'okだよ'
 
 
