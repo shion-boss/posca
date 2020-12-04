@@ -11,7 +11,7 @@ from .models import taged_data,posca_point
 from .tasks import add
 from django_celery_results.models import TaskResult
 from celery.result import AsyncResult
-
+from .pm import random_time
 
 # Create your views here.
 def save_post(driver,count):
@@ -169,7 +169,7 @@ def test_ajax_response(request):
 
 def search_tags_ajax_view(request):
     options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
+    #options.add_argument('--headless')
     options.add_argument('--disable-gpu')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--no-sandbox')
@@ -178,18 +178,52 @@ def search_tags_ajax_view(request):
     options.add_argument('--proxy-bypass-list=*')      # すべてのホスト名
     options.add_argument('--start-maximized')
     driver = webdriver.Chrome(options=options)
-    driver.implicitly_wait(30)
+    driver.implicitly_wait(60)
     driver.set_page_load_timeout(100)
     #インスタグラムを検索
     driver.get('https://www.instagram.com')
+    random_time()
     #ユーザーネーム入力
-    l=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
-    l.send_keys('poscagram')
+    if len(driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input'))==1:
+        un=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
+        un.send_keys('poscagram')
+    elif len(driver.find_elements_by_xpath("//form[input/@name='username']"))==1:
+        un=driver.find_element_by_xpath("//form[input/@name='username']")
+        un.send_keys('poscagram')
+    elif len(driver.find_elements_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[1]/div/label/input'))==1:
+        un=driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[1]/div/label/input')
+        un.send_keys('poscagram')
+    else:
+        return HttpResponse('input[username]を取得出来ませんでした。')
     #パスワード入力
-    r=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
-    r.send_keys(settings.IGKEY)
+    if len(driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input'))==1:
+        ik=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
+        ik.send_keys(settings.IGKEY)
+    elif len(driver.find_elements_by_xpath("//form[input/@name='password']"))==1:
+        ik=driver.find_element_by_xpath("//form[input/@name='password']")
+        ik.send_keys(settings.IGKEY)
+    elif len(driver.find_elements_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[1]/div/label/input'))==1:
+        ik=driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[2]/div/label/input')
+        ik.send_keys(settings.IGKEY)
+    else:
+        return HttpResponse('input[password]を取得出来ませんでした。')
     #インスタグラムにログイン
-    driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]').click()
+    if len(driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[3]')) ==1:
+        login=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]')
+        login.click()
+    elif len(driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[3]/button')) ==1:
+        login=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]/button')
+        login.click()
+    elif len(driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[3]/button/div')) ==1:
+        login=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]/button/div')
+        login.click()
+    elif len(driver.find_elements_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[3]/button/div')) ==1:
+        login=driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[3]/button/div')
+        login.click()
+    elif len(driver.find_elements_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[3]/button')) ==1:
+        login=driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[3]/button')
+        login.click()
+
     #情報を保存しない
     try:
         driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button').click()

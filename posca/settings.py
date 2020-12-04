@@ -271,10 +271,12 @@ if not DEBUG:
     CELERY_BEAT_SCHEDULE = {
         'task-number-one': {
             'task': 'task_search_taged',
-            'schedule': timedelta(minutes=24*60),
+            'schedule': crontab(minute=0, hour=12),
+
         },
     }
     #'args': (10, 15),
+    #'schedule': timedelta(minutes=24*60),
     #'schedule': crontab(minute=30, hour=21),
     CELERY_ALWAYS_EAGER = False
     CELERY_BROKER_URL = os.environ.get('REDIS_URL')
