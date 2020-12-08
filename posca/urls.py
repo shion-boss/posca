@@ -16,10 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from igposca.urls import router as igposca_router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include("igposca.urls")),
+    path('api/',include(igposca_router.urls)),
 ]
+
 
 urlpatterns += staticfiles_urlpatterns()

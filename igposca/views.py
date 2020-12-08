@@ -12,6 +12,14 @@ from .tasks import add
 from django_celery_results.models import TaskResult
 from celery.result import AsyncResult
 from .pm import random_time
+import django_filters
+from rest_framework import viewsets, filters
+from .serializer import taged_data_Serializer
+
+
+class taged_data_viewsets(viewsets.ModelViewSet):
+    queryset = taged_data.objects.all()
+    serializer_class = taged_data_Serializer
 
 # Create your views here.
 def save_post(driver,count):

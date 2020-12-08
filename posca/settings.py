@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'igposca',
     'django_celery_results',
+    'rest_framework',
 ]
 
 ################
