@@ -21,7 +21,7 @@ from igposca.urls import router as igposca_router
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include("igposca.urls")),
-    path('api/',include(igposca_router.urls)),
+    path('apii/',include(igposca_router.urls)),
 ]
 
 
