@@ -256,21 +256,21 @@ def search_tags_ajax_view(request):
         driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]').click()
     except:
         pass
-    #タグ付けさえた投稿を検索
-    driver.get('https://www.instagram.com/poscagram/tagged/')
-    #最新の投稿を開く
-    driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div[2]/article/div/div/div[1]/div[1]').click()
-    ################################
-    count=0
-    while save_post(driver=driver,count=count):
-        count+=1
-        #print('yeah')
-    else:
-        pass
-        #print('ふぅ、、疲れたぜ')
-    data='おまえは天才'
-    driver.close()
-    return HttpResponse(data)
+    driver.get('https://www.instagram.com/explore/tags/息子/?hl=ja')
+    random_time()
+    driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]').click()
+    random_time()
+    for i in range(11):
+        e=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/div[2]/div/div/div[2]')
+        webdriver.ActionChains(driver).double_click(e).perform()
+        random_time()
+        driver.find_element_by_xpath('/html/body/div[5]/div[1]/div/div/a[2]').click()
+        random_time()
+
+
+
+
+    return HttpResponse("ok")
 
 
 def ajax_test_view(request):

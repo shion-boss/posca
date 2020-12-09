@@ -190,6 +190,12 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',
+    ]
+}
+
 
 #SOCIALACCOUNT_PROVIDERS = {
     #'line': {
@@ -273,7 +279,10 @@ if not DEBUG:
         'task-number-one': {
             'task': 'task_search_taged',
             'schedule': crontab(minute=0, hour=12),
-
+        },
+        'task-likes': {
+            'task': 'task_likes',
+            'schedule': timedelta(minutes=10),
         },
     }
     #'args': (10, 15),
