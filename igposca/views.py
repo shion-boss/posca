@@ -191,7 +191,7 @@ def test_ajax_response(request):
 
 def search_tags_ajax_view(request):
     options = webdriver.ChromeOptions()
-    #options.add_argument('--headless')
+    options.add_argument('--headless')
     options.add_argument('--disable-gpu')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--no-sandbox')
@@ -208,25 +208,25 @@ def search_tags_ajax_view(request):
     #ユーザーネーム入力
     if len(driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input'))==1:
         un=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
-        un.send_keys('poscagram')
+        un.send_keys('dn.2a1')
     elif len(driver.find_elements_by_xpath("//form[input/@name='username']"))==1:
         un=driver.find_element_by_xpath("//form[input/@name='username']")
-        un.send_keys('poscagram')
+        un.send_keys('dn.2a1')
     elif len(driver.find_elements_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[1]/div/label/input'))==1:
         un=driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[1]/div/label/input')
-        un.send_keys('poscagram')
+        un.send_keys('dn.2a1')
     else:
         return HttpResponse('input[username]を取得出来ませんでした。')
     #パスワード入力
     if len(driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input'))==1:
         ik=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
-        ik.send_keys(settings.IGKEY)
+        ik.send_keys('dntwoaone')
     elif len(driver.find_elements_by_xpath("//form[input/@name='password']"))==1:
         ik=driver.find_element_by_xpath("//form[input/@name='password']")
-        ik.send_keys(settings.IGKEY)
+        ik.send_keys('dntwoaone')
     elif len(driver.find_elements_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[1]/div/label/input'))==1:
         ik=driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[2]/div/label/input')
-        ik.send_keys(settings.IGKEY)
+        ik.send_keys('dntwoaone')
     else:
         return HttpResponse('input[password]を取得出来ませんでした。')
     #インスタグラムにログイン
