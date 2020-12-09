@@ -301,6 +301,7 @@ if not DEBUG:
 
 #celery -A posca worker -l INFO
 #celery -A posca worker --concurrency=1
+#worker: celery -A posca worker -B -l info
 
 BROKER_URL = 'redis://localhost'
 
