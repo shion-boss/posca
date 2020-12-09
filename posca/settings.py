@@ -239,11 +239,11 @@ if not DEBUG:
     CACHES = {
         "default": {
              "BACKEND": "redis_cache.RedisCache",
-             "LOCATION": os.environ.get('REDIS_URL'),
+             "LOCATION": os.environ.get('HEROKU_REDIS_GRAY_URL'),
         }
     }
-    BROKER_URL = os.environ.get("REDIS_URL")
-    CELERY_RESULT_BACKEND = os.environ.get("REDIS_URL")
+    BROKER_URL = os.environ.get("HEROKU_REDIS_GRAY_URL")
+    CELERY_RESULT_BACKEND = os.environ.get("HEROKU_REDIS_GRAY_URL")
 
 
 #####heroku#####
@@ -288,8 +288,8 @@ if not DEBUG:
     #'schedule': timedelta(minutes=24*60),
     #'schedule': crontab(minute=30, hour=21),
     CELERY_ALWAYS_EAGER = False
-    CELERY_BROKER_URL = os.environ.get('REDIS_URL')
-    CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
+    CELERY_BROKER_URL = os.environ.get('HEROKU_REDIS_GRAY_URL')
+    CELERY_RESULT_BACKEND = os.environ.get('HEROKU_REDIS_GRAY_URL')
     CELERY_BROKER_HOST = os.environ.get('DATABASE_URL')
     CELERY_ACCEPT_CONTENT = ['application/json']
     CELERY_RESULT_SERIALIZER = 'json'
