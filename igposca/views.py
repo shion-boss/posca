@@ -16,20 +16,6 @@ import django_filters
 from rest_framework import viewsets, filters
 from .serializer import taged_data_Serializer
 
-from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework.permissions import BasePermission
-
-class IsAdmin(BasePermission):
-    def has_permission(self, request, view):
-        return request.user and request.user.email == 'poscagram@gmail.com'
-
-class SampleView(GenericAPIView):
-    permission_classes = (IsAdmin,)
-
-    def get(self, request, format=None):
-        return Response()
 
 class taged_data_viewsets(viewsets.ModelViewSet):
     queryset = taged_data.objects.all()
