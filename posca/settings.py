@@ -302,7 +302,7 @@ if not DEBUG:
     import ssl
 
     BROKER_USE_SSL = {'ssl_cert_reqs': 'none'}
-    CELERY_REDIS_BACKEND_USE_SSL = {'ssl_cert_reqs': ssl.CERT_REQUIRED}
+    CELERY_REDIS_BACKEND_USE_SSL = {'ssl_cert_reqs': ssl.CERT_NONE}
 
 #celery -A posca worker -l INFO
 #celery -A posca worker --concurrency=1
