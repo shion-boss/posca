@@ -236,6 +236,7 @@ if not DEBUG:
     IGKEY=os.environ['IGKEY']
     import django_heroku #追加
     django_heroku.settings(locals()) #追加
+    """
     CACHES = {
         "default": {
              "BACKEND": "redis_cache.RedisCache",
@@ -244,6 +245,7 @@ if not DEBUG:
     }
     BROKER_URL = os.environ.get("HEROKU_REDIS_GRAY_URL")
     CELERY_RESULT_BACKEND = os.environ.get("HEROKU_REDIS_GRAY_URL")
+    """
 
 
 #####heroku#####
