@@ -297,6 +297,11 @@ if not DEBUG:
     CELERY_TIMEZONE = 'Asia/Tokyo'
     CELERY_TASK_TRACK_STARTED = True # taskが開始状態になったことを確認できるための設定（後述）
 
+    import ssl
+
+    BROKER_USE_SSL = {'ssl_cert_reqs': 'none'}
+    CELERY_REDIS_BACKEND_USE_SSL = {'ssl_cert_reqs': ssl.CERT_REQUIRED}
+
 #celery -A posca worker -l INFO
 #celery -A posca worker --concurrency=1
 #worker: celery -A posca worker -B -l info
