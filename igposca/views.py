@@ -21,6 +21,10 @@ class taged_data_viewsets(viewsets.ModelViewSet):
     queryset = taged_data.objects.all()
     serializer_class = taged_data_Serializer
 
+
+def delay_test(request):
+    add.delay()
+    return HttpResponse('お願いはしておいたよ')
 # Create your views here.
 def save_post(driver,count):
     #poscagramの投稿か確認

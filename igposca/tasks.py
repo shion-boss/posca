@@ -18,10 +18,10 @@ from celery.result import AsyncResult
 
 
 @app.task
-def add(x, y):
-    random_time()
-    Widget(name='??分間もよく耐えた！').save()
-    return x + y
+def add():
+    time.sleep(300)
+    Widget(name='いけてるね。12/9').save()
+    return 'ok'
 
 from celery.decorators import periodic_task
 from datetime import timedelta
