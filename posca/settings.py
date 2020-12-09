@@ -282,7 +282,7 @@ if not DEBUG:
         },
         'task-likes': {
             'task': 'task_likes',
-            'schedule': timedelta(minutes=60),
+            'schedule': timedelta(minutes=5),
         },
 
     }
