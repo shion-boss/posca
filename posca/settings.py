@@ -224,7 +224,7 @@ DATABASES['default'].update(db_from_env)
 
 #####heroku#####
 if not DEBUG:
-    SECURE_SSL_REDIRECT = True
+    #SECURE_SSL_REDIRECT = True
     #SMARTMAIL=os.environ['smartmail']
     #TECHBEEMAIL=os.environ['techbeeMail']
     #OHTSUKIMAIL=os.environ['ohtsukiMail']
