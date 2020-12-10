@@ -8,7 +8,7 @@ from django.conf import settings
 import urllib
 import os
 from .models import taged_data,posca_point
-from .tasks import add
+from .tasks import add,ig_like_view
 from django_celery_results.models import TaskResult
 from celery.result import AsyncResult
 from .pm import random_time
@@ -23,7 +23,7 @@ class taged_data_viewsets(viewsets.ModelViewSet):
 
 
 def delay_test(request):
-    add.delay()
+    ig_like_view()
     return HttpResponse('お願いはしておいたよ')
 # Create your views here.
 def save_post(driver,count):
