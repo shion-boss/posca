@@ -299,7 +299,7 @@ if not DEBUG:
     CELERY_RESULT_SERIALIZER = 'json'
     CELERY_TASK_SERIALIZER = 'json'
     CELERY_TIMEZONE = 'Asia/Tokyo'
-    CELERY_TASK_TRACK_STARTED = True # taskが開始状態になったことを確認できるための設定（後述）
+    CELERY_TASK_TRACK_STARTED = False # taskが開始状態になったことを確認できるための設定（後述）
 
     import ssl
 
