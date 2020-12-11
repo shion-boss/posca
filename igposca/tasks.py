@@ -91,10 +91,15 @@ def search_taged():
     return [{"status": True}]
 
 #,serializer='json'
+
+import logging
+
+
 @app.task(name='task_likes')
 def ig_like_view():
+
     options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
+    #options.add_argument('--headless')
     options.add_argument('--disable-gpu')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--no-sandbox')
@@ -104,13 +109,14 @@ def ig_like_view():
     options.add_argument('--start-maximized')
     options.add_argument('--incognito')
     driver = webdriver.Chrome(options=options)
-    driver.implicitly_wait(60)
+    driver.implicitly_wait(120)
     driver.set_page_load_timeout(100)
     driver.set_window_size('1200', '1000')
     #インスタグラムを検索
-    driver.get('https://www.instagram.com/accounts/login/?next=%2Fdn.2a1%2F&source=desktop_nav')
+    driver.get('https://www.instagram.com/')
     random_time()
-    time.sleep(20)
+    logger = logging.getLogger(__name__)
+    logger.info("log info test!")
     if len(driver.find_elements_by_xpath('/html/body/div[1]/section/main/article/div/div/div/div[2]/button'))==1:
         driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div/div/div/div[2]/button').click()
     #ユーザーネーム入力
@@ -166,7 +172,7 @@ def ig_like_view():
     except:
         pass
     count=0
-    for s in range(11):
+    for s in range(10):
         driver.get('https://www.instagram.com/explore/tags/息子/?hl=ja')
         random_time()
         if len(driver.find_elements_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div[1]/div[2]'))==1:
