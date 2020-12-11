@@ -109,6 +109,8 @@ def ig_like_view():
     #インスタグラムを検索
     driver.get('https://www.instagram.com')
     random_time()
+    if len(driver.find_elements_by_xpath('/html/body/div[1]/section/main/article/div/div/div/div[2]/button'))==1:
+        driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div/div/div/div[2]/button').click()
     #ユーザーネーム入力
     if len(driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input'))==1:
         un=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
