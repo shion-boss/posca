@@ -282,7 +282,7 @@ if not DEBUG:
         },
         'task-likes': {
             'task': 'task_likes',
-            'schedule': timedelta(minutes=60*12),
+            'schedule':  crontab(minute=10, hour=15),
         },
     }
     #'args': (10, 15),
