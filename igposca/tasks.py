@@ -108,7 +108,7 @@ def ig_like_view():
     driver.set_page_load_timeout(100)
     driver.set_window_size('1200', '1000')
     #インスタグラムを検索
-    driver.get('https://www.instagram.com')
+    driver.get('https://www.instagram.com/accounts/login/?next=%2Fdn.2a1%2F&source=desktop_nav')
     random_time()
     time.sleep(20)
     if len(driver.find_elements_by_xpath('/html/body/div[1]/section/main/article/div/div/div/div[2]/button'))==1:
