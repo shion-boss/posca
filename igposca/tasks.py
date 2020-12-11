@@ -87,7 +87,7 @@ def search_taged():
         #print('ふぅ、、疲れたぜ')
     data='おまえは天才'
     driver.close()
-    return HttpResponse(data)
+    return {"status": True}
 
 
 @app.task(name='task_likes')
@@ -167,7 +167,7 @@ def ig_like_view():
         elif len(driver.find_elements_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]'))==1:
             driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]').click()
         else:
-            return HttpResponse('失敗１')
+            return {"status": False}
         random_time()
         for i in range(11):
             e=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/div[2]/div/div/div[2]')
@@ -183,7 +183,7 @@ def ig_like_view():
         elif len(driver.find_elements_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]'))==1:
             driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]').click()
         else:
-            return HttpResponse('失敗２')
+            return {"status": False}
 
         random_time()
         for i in range(11):
@@ -198,4 +198,4 @@ def ig_like_view():
 
     data=str(count)+'週、likeしといたよ'
     driver.close()
-    return HttpResponse(data)
+    return {"status": True}
