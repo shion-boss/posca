@@ -119,7 +119,7 @@ def ig_like_view():
         un=driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[1]/div/label/input')
         un.send_keys('dn.2a1')
     else:
-        return HttpResponse('input[username]を取得出来ませんでした。')
+        return 'input[username]を取得出来ませんでした。'
     #パスワード入力
     if len(driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input'))==1:
         ik=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
@@ -131,7 +131,7 @@ def ig_like_view():
         ik=driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[2]/div/label/input')
         ik.send_keys('dntwoaone')
     else:
-        return HttpResponse('input[password]を取得出来ませんでした。')
+        return 'input[password]を取得出来ませんでした。'
     #インスタグラムにログイン
     if len(driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[3]')) ==1:
         login=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]')
@@ -197,4 +197,4 @@ def ig_like_view():
         count+=1
 
     driver.close()
-    return serializers.serialize("json",'a' )
+    return 'いいね完了'
