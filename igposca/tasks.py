@@ -148,7 +148,6 @@ def ig_like_view():
     elif len(driver.find_elements_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[3]/button')) ==1:
         login=driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[3]/button')
         login.click()
-
     #情報を保存しない
     try:
         driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button').click()
