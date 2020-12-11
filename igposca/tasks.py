@@ -106,9 +106,11 @@ def ig_like_view():
     driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(60)
     driver.set_page_load_timeout(100)
+    driver.set_window_size('1200', '1000')
     #インスタグラムを検索
     driver.get('https://www.instagram.com')
     random_time()
+    time.sleep(20)
     if len(driver.find_elements_by_xpath('/html/body/div[1]/section/main/article/div/div/div/div[2]/button'))==1:
         driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div/div/div/div[2]/button').click()
     #ユーザーネーム入力
