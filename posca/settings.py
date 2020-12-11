@@ -280,16 +280,16 @@ if not DEBUG:
             'task': 'task_search_taged',
             'schedule': crontab(minute=0, hour=12),
         },
-        'task-likes': {
-            'task': 'task_likes',
-            'schedule':  crontab(minute=16, hour=19),
-        },
+
     }
     #'args': (10, 15),
     #'schedule': timedelta(minutes=24*60),
     #'schedule': crontab(minute=30, hour=21),
     """
-
+    'task-likes': {
+        'task': 'task_likes',
+        'schedule':  crontab(minute=16, hour=19),
+    },
 
     """
     CELERY_ALWAYS_EAGER = False
