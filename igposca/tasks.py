@@ -94,7 +94,7 @@ def search_taged():
 @app.task(name='task_likes')
 def ig_like_view():
     options = webdriver.ChromeOptions()
-    #options.add_argument('--headless')
+    options.add_argument('--headless')
     options.add_argument('--disable-gpu')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--no-sandbox')
@@ -102,6 +102,7 @@ def ig_like_view():
     options.add_argument('--proxy-server="direct://"') # Proxy経由ではなく直接接続する
     options.add_argument('--proxy-bypass-list=*')      # すべてのホスト名
     options.add_argument('--start-maximized')
+    option.add_argument('--incognito') 
     driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(60)
     driver.set_page_load_timeout(100)
