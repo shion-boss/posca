@@ -109,8 +109,8 @@ def ig_like_view():
     options.add_argument('--proxy-bypass-list=*')      # すべてのホスト名
     options.add_argument('--incognito')
     driver = webdriver.Chrome(options=options)
-    driver.set_window_size('1200', '1000')
-    driver.implicitly_wait(120)
+    #driver.set_window_size('1200', '1000')
+    driver.implicitly_wait(30)
     driver.set_page_load_timeout(100)
 
     #インスタグラムを検索
@@ -120,18 +120,12 @@ def ig_like_view():
         logger.info('Instagramを開けませんでした。')
     else:
         logger.info('Instagramを開きました。')
-    random_time()
-    try:
-        driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div/div/div/div[2]/button').click()
-    except:
-        logger.info('ログインページへの誘導ボタンは必要ありませんでした。')
-    else:
-        logger.info('ログインページへの誘導ボタンを押しました。')
+        time.sleep(60)
+        logger.info('1分間の休憩が終わりました。')
 
     #ユーザーネーム入力
     try:
-        un=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
-        un.send_keys('dn.2a1')
+        driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input').send_keys('dn.2a1')
     except:
         logger.info('ユーザーネームを打ち込めませんでした。')
     else:
@@ -153,8 +147,7 @@ def ig_like_view():
     """
     #パスワード入力
     try:
-        ik=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
-        ik.send_keys('dntwoaone')
+        driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input').send_keys('dntwoaone')
     except:
         logger.info('パスワードを打ち込めませんでした。')
     else:
@@ -174,8 +167,7 @@ def ig_like_view():
     """
     #インスタグラムにログイン
     try:
-        login=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]')
-        login.click()
+        driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]').click()
     except:
         logger.info('ログインに失敗しました。')
     else:
@@ -201,13 +193,16 @@ def ig_like_view():
     try:
         driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button').click()
     except:
-        pass
+        logger.info('「情報を保存しない」をクリック出来ませんでした。')
+    else:
+        logger.info('「情報を保存しない」をクリックしました。')
     #お知らせを受け取らない
     try:
         driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]').click()
     except:
-        pass
-    count=0
+        logger.info('「お知らせを受け取らない」をクリック出来ませんでした。')
+    else:
+        logger.info('「お知らせを受け取らない」をクリックしました。')
     for s in range(10):
         driver.get('https://www.instagram.com/explore/tags/息子/?hl=ja')
         random_time()
@@ -216,7 +211,7 @@ def ig_like_view():
         elif len(driver.find_elements_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]'))==1:
             driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]').click()
         else:
-            pass
+            logger.info('最新の投稿を取得できませんでした。')
         random_time()
         for i in range(11):
             e=driver.find_element_by_xpath('/html/body/div[5]/div[2]/div/article/div[2]/div/div/div[2]')
@@ -224,6 +219,7 @@ def ig_like_view():
             random_time()
             driver.find_element_by_xpath('/html/body/div[5]/div[1]/div/div/a[2]').click()
             random_time()
+        logger.info('一つ目のいいねが完了しました。')
 
         driver.get('https://www.instagram.com/explore/tags/娘/?hl=ja')
         random_time()
@@ -232,7 +228,7 @@ def ig_like_view():
         elif len(driver.find_elements_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]'))==1:
             driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]').click()
         else:
-            pass
+            logger.info('最新の投稿を取得できませんでした。')
 
         random_time()
         for i in range(11):
@@ -241,8 +237,8 @@ def ig_like_view():
             random_time()
             driver.find_element_by_xpath('/html/body/div[5]/div[1]/div/div/a[2]').click()
             random_time()
+        logger.info('二つ目のいいねが完了しました。')
         time.sleep(3000)
-        count+=1
 
     driver.close()
     return 'いいね完了'

@@ -5,7 +5,7 @@ from .models import taged_data,posca_point
 
 
 def random_time():
-    t=random.uniform(5, 15)
+    t=random.uniform(1, 3)
     time.sleep(t)
     return t
 
