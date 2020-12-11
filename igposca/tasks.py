@@ -120,7 +120,9 @@ def ig_like_view():
         un=driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[1]/div/label/input')
         un.send_keys('dn.2a1')
     else:
-        return 'input[username]を取得出来ませんでした。'
+        d=len(driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input'))
+        data= str(d)+':input[username]を取得出来ませんでした。'
+        return data
     #パスワード入力
     if len(driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input'))==1:
         ik=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
