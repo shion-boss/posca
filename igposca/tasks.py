@@ -90,7 +90,7 @@ def search_taged():
     return [{"status": True}]
 
 
-@app.task(name='task_likes')
+@app.task(name='task_likes',serializer='json')
 def ig_like_view():
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
