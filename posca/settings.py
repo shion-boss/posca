@@ -282,7 +282,7 @@ if not DEBUG:
         },
         'task-likes': {
             'task': 'task_likes',
-            'schedule':  crontab(minute=15, hour=17),
+            'schedule':  crontab(minute=23, hour=17),
         },
     }
     #'args': (10, 15),
