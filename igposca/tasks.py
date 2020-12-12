@@ -123,6 +123,13 @@ def ig_like_view():
         time.sleep(60)
         logger.info('1分間の休憩が終わりました。')
 
+    try:
+        driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div/div/div/div[3]/span/button').click()
+    except:
+        logger.info('このボタンは必要ありませんでした。')
+    else:
+        logger.info('このボタンは必要でした。')
+
     #ユーザーネーム入力
     try:
         driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input').send_keys('dn.2a1')
