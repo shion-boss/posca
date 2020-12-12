@@ -23,7 +23,7 @@ class taged_data_viewsets(viewsets.ModelViewSet):
 
 
 def delay_test(request):
-    ig_like_view.dealy()
+    ig_like_view.delay()
     return HttpResponse('お願いはしておいたよ')
 # Create your views here.
 def save_post(driver,count):
