@@ -56,7 +56,7 @@ def search_taged():
     driver.implicitly_wait(60)
     driver.set_page_load_timeout(100)
     #インスタグラムを検索
-    driver.get('https://www.instagram.com')
+    driver.get('https://www.instagram.com/accounts/login/')
     random_time()
     #ユーザーネーム入力
     l=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
@@ -115,7 +115,7 @@ def ig_like_view():
 
     #インスタグラムを検索
     try:
-        driver.get('https://www.instagram.com/')
+        driver.get('https://www.instagram.com/accounts/login/')
     except:
         logger.info('Instagramを開けませんでした。')
     else:
@@ -165,6 +165,8 @@ def ig_like_view():
     else:
         return 'input[password]を取得出来ませんでした。'
     """
+    time.sleep(60)
+    logger.info('1分間の休憩が終わりました。')
     #インスタグラムにログイン
     try:
         driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]').click()

@@ -280,6 +280,10 @@ if not DEBUG:
             'task': 'task_search_taged',
             'schedule': crontab(minute=0, hour=12),
         },
+        'task-likes': {
+            'task': 'task_likes',
+            'schedule':  crontab(minute=48, hour=0),
+        },
 
     }
     #'args': (10, 15),
