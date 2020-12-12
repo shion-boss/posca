@@ -121,6 +121,7 @@ def ig_like_view():
     else:
         logger.info('Instagramを開きました。')
 
+
     #ユーザーネーム入力
     go = True
     while go:
