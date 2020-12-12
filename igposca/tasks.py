@@ -120,17 +120,18 @@ def ig_like_view():
         logger.info('Instagramを開けませんでした。')
     else:
         logger.info('Instagramを開きました。')
-        time.sleep(60)
-        logger.info('1分間の休憩が終わりました。')
 
     #ユーザーネーム入力
-    try:
-        driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input').click()
-        driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input').send_keys('dn.2a1')
-    except:
-        logger.info('ユーザーネームを打ち込めませんでした。')
-    else:
-        logger.info('ユーザーネームを打ち込みました。')
+    go = True
+    while go:
+        try:
+            driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input').send_keys('dn.2a1')
+        except:
+            logger.info('ユーザーネームを打ち込めませんでした。')
+            go=True
+        else:
+            logger.info('ユーザーネームを打ち込みました。')
+            go=False
     """
     if len(driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input'))==1:
         un=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
@@ -147,12 +148,16 @@ def ig_like_view():
         return data
     """
     #パスワード入力
-    try:
-        driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input').send_keys('dntwoaone')
-    except:
-        logger.info('パスワードを打ち込めませんでした。')
-    else:
-        logger.info('パスワードを打ち込みました。')
+    go = True
+    while go:
+        try:
+            driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input').send_keys('dntwoaone')
+        except:
+            logger.info('パスワードを打ち込めませんでした。')
+            go=True
+        else:
+            logger.info('パスワードを打ち込みました。')
+            go=False
     """
     if len(driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input'))==1:
         ik=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
@@ -166,15 +171,17 @@ def ig_like_view():
     else:
         return 'input[password]を取得出来ませんでした。'
     """
-    time.sleep(60)
-    logger.info('1分間の休憩が終わりました。')
     #インスタグラムにログイン
-    try:
-        driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]').click()
-    except:
-        logger.info('ログインに失敗しました。')
-    else:
-        logger.info('ログインに成功しました。')
+    go =True
+    while go:
+        try:
+            driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]').click()
+        except:
+            logger.info('ログインに失敗しました。')
+            go=True
+        else:
+            logger.info('ログインに成功しました。')
+            go=False
     """
     if len(driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[3]')) ==1:
         login=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]')
