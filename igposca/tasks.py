@@ -100,7 +100,7 @@ def search_taged():
 def ig_like_view():
     logger = logging.getLogger(__name__)
     options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
+    #options.add_argument('--headless')
     options.add_argument('--disable-gpu')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--no-sandbox')
@@ -109,7 +109,7 @@ def ig_like_view():
     options.add_argument('--proxy-bypass-list=*')      # すべてのホスト名
     options.add_argument('--incognito')
     driver = webdriver.Chrome(options=options)
-    #driver.set_window_size('1200', '1000')
+    driver.set_window_size('1200', '1000')
     driver.implicitly_wait(30)
     driver.set_page_load_timeout(100)
 
@@ -120,9 +120,27 @@ def ig_like_view():
         logger.info('Instagramを開けませんでした。')
     else:
         logger.info('Instagramを開きました。')
+    try:
+        driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input').send_keys('dn.2a1')
+    except:
+        print('ユーザーネームを打ち込めませんでした。')
+    else:
+        print('ユーザーネームを打ち込みました。')
+    try:
+        driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input').send_keys('dntwoaone')
+    except:
 
-
+        print('パスワードを打ち込めませんでした。')
+    else:
+        print('パスワードを打ち込みました。')
+    try:
+        driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]').click()
+    except:
+        print('ログインに失敗')
+    else:
+        print('ログインに成功')
     #ユーザーネーム入力
+    """
     go = True
     while go:
         try:
@@ -133,7 +151,7 @@ def ig_like_view():
         else:
             logger.info('ユーザーネームを打ち込みました。')
             go=False
-    """
+
     if len(driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input'))==1:
         un=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input')
         un.send_keys('dn.2a1')
@@ -149,17 +167,55 @@ def ig_like_view():
         return data
     """
     #パスワード入力
+    """
     go = True
     while go:
         try:
             driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input').send_keys('dntwoaone')
         except:
-            logger.info('パスワードを打ち込めませんでした。')
+
             go=True
         else:
-            logger.info('パスワードを打ち込みました。')
+
             go=False
-    """
+        #execute_script('document.getElementsByName("name属性")[0].value="%s";' % text)
+    time.sleep(5)
+    try:
+        driver.execute_script('document.getElementsByClassName("_9GP1n")[0].classList.add("HlU5H");')
+        driver.execute_script('document.getElementsByName("username")[0].classList.add("focus-visible");')
+        driver.execute_script('document.getElementsByName("username")[0].dataset.focusVisibleAdded="";')
+        driver.execute_script('document.getElementsByClassName("f0n8F")[0].classList.add("FATdn");')
+        #driver.execute_script('document.getElementsByName("username")[0].value="%s";' %'dn.2a1')
+        driver.execute_script('document.getElementsByName("username")[0].setAttribute("value", "dn.2a1");')
+        driver.execute_script('document.getElementsByName("username")[0].removeAttribute("data-focus-visible-added");')
+        driver.execute_script('document.getElementsByName("username")[0].classList.remove("focus-visible");')
+        driver.execute_script('document.getElementsByClassName("_9GP1n")[0].classList.remove("HlU5H");')
+    except:
+        print('JavaScript失敗')
+        #logger.info('ユーザーネームを打ち込めませんでした。')
+    else:
+        print('JavaScript成功')
+        #logger.info('ユーザーネームを打ち込みました。')
+
+    try:
+        driver.execute_script('document.getElementsByClassName("_9GP1n")[1].classList.add("HlU5H");')
+        driver.execute_script('document.getElementsByName("password")[0].classList.add("focus-visible");')
+        driver.execute_script('document.getElementsByName("password")[0].dataset.focusVisibleAdded="";')
+        driver.execute_script('document.getElementsByClassName("f0n8F")[1].classList.add("FATdn");')
+        #driver.execute_script('document.getElementsByName("password")[0].value="%s";' %'dntwoaone')
+        driver.execute_script('document.getElementsByName("password")[0].setAttribute("value", "dntwoaone");')
+        driver.execute_script('document.getElementsByName("password")[0].removeAttribute("data-focus-visible-added");')
+        driver.execute_script('document.getElementsByName("password")[0].classList.remove("focus-visible");')
+        driver.execute_script('document.getElementsByClassName("_9GP1n")[1].classList.remove("HlU5H");')
+    except:
+        print('JavaScript失敗')
+        #logger.info('パスワードを打ち込めませんでした。')
+    else:
+        print('JavaScript成功２')
+        #logger.info('パスワードを打ち込みました。')
+    time.sleep(1)
+    #driver.execute_script('document.getElementsByTagName("button")[0].disabled = false;')
+    time.sleep(3)
     if len(driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input'))==1:
         ik=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
         ik.send_keys('dntwoaone')
@@ -171,7 +227,7 @@ def ig_like_view():
         ik.send_keys('dntwoaone')
     else:
         return 'input[password]を取得出来ませんでした。'
-    """
+
     #インスタグラムにログイン
     go =True
     while go:
@@ -183,7 +239,7 @@ def ig_like_view():
         else:
             logger.info('ログインに成功しました。')
             go=False
-    """
+
     if len(driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[3]')) ==1:
         login=driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]')
         login.click()
