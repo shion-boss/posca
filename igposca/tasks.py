@@ -112,6 +112,7 @@ def ig_like_view():
     driver.set_window_size('1200', '1000')
     driver.implicitly_wait(30)
     driver.set_page_load_timeout(100)
+    
 
     #インスタグラムを検索
     try:
