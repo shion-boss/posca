@@ -123,21 +123,26 @@ def ig_like_view():
     try:
         driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/input').send_keys('dn.2a1')
     except:
+        logger.info('ユーザーネームを打ち込めませんでした。')
         print('ユーザーネームを打ち込めませんでした。')
     else:
+        logger.info('ユーザーネームを打ち込みました。')
         print('ユーザーネームを打ち込みました。')
     try:
         driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input').send_keys('dntwoaone')
     except:
-
+        logger.info('パスワードを打ち込めませんでした。')
         print('パスワードを打ち込めませんでした。')
     else:
+        logger.info('パスワードを打ち込みました。')
         print('パスワードを打ち込みました。')
     try:
         driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]').click()
     except:
+        logger.info('ログインに失敗')
         print('ログインに失敗')
     else:
+        logger.info('ログインに成功')
         print('ログインに成功')
     #ユーザーネーム入力
     """
