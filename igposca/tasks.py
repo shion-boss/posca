@@ -51,8 +51,8 @@ def search_taged():
     options.add_argument('--disable-extensions') #すべての拡張機能を無効にする。ユーザースクリプトも無効
     options.add_argument('--proxy-server="direct://"') # Proxy経由ではなく直接接続する
     options.add_argument('--proxy-bypass-list=*')      # すべてのホスト名
-    options.add_argument('--start-maximized')
     driver = webdriver.Chrome(options=options)
+    driver.set_window_size('1200', '1000')
     driver.implicitly_wait(60)
     driver.set_page_load_timeout(100)
     #インスタグラムを検索
@@ -112,7 +112,7 @@ def ig_like_view():
     driver.set_window_size('1200', '1000')
     driver.implicitly_wait(30)
     driver.set_page_load_timeout(100)
-    
+
 
     #インスタグラムを検索
     try:

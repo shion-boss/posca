@@ -278,7 +278,7 @@ if not DEBUG:
     CELERY_BEAT_SCHEDULE = {
         'task-number-one': {
             'task': 'task_search_taged',
-            'schedule': crontab(minute=50, hour=19),
+            'schedule': crontab(minute=0, hour=20),
         },
 
 
