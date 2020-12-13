@@ -276,10 +276,7 @@ if not DEBUG:
     from datetime import timedelta
     from celery.schedules import crontab
     CELERY_BEAT_SCHEDULE = {
-        'task-number-one': {
-            'task': 'task_search_taged',
-            'schedule': crontab(minute=0, hour=20),
-        },
+
 
 
     }
@@ -287,6 +284,10 @@ if not DEBUG:
     #'schedule': timedelta(minutes=24*60),
     #'schedule': crontab(minute=30, hour=21),
     """
+    'task-number-one': {
+        'task': 'task_search_taged',
+        'schedule': crontab(minute=0, hour=20),
+    },
     'task-likes': {
         'task': 'task_likes',
         'schedule':  crontab(minute=16, hour=19),
